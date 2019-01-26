@@ -19,7 +19,9 @@ Before we dive into the how I think it is really important to understand why, wh
 ---
 {layout="14 Title at Top"}
 
-![](){pad=100 offset-x=100}
+## Easy to bypass the perimeter by attacking code
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/bypass.png){pad=100 offset-y=100}
 
 <!--
 What if I told you that an attacker could quite possibly by pass that external defence, that they had the possibility to gain access to the internal network without even trying to touch external firewall but by looking for application code level vulnerabilities which allows them direct access to your internal systems?
