@@ -33,7 +33,7 @@ You might believe me, you might say no chance, you might say I have heard about 
 ---
 {layout="09 Section Title - Consul"}
 
-# One of the key phases in most targeted attacks is what’s known as lateral movement. Attackers rarely luck out and manage to immediately compromise the computer
+# "One of the key phases in most targeted attacks is what’s known as lateral movement. Attackers rarely luck out and manage to immediately compromise the computer"{style="font-size: 72"}
 ## Symantec Internet Threat Report 2018
 
 <!--
@@ -48,7 +48,7 @@ This lateral movement is the key thing here, I love this quote from the Symantec
 
 ## Example attack on vulnerable service
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/vulnerable_service.png){pad=100 offset-y=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/vulnerable_service.png){pad=100}
 
 
 
