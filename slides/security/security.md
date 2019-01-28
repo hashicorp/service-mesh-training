@@ -28,3 +28,47 @@ What if I told you that an attacker could quite possibly by pass that external d
 
 You might believe me, you might say no chance, you might say I have heard about this approach but it would never happen to me we patch our systems regularly and take a secure code review of the application code we write. 
 -->
+
+
+---
+{layout="09 Section Title - Consul"}
+
+# One of the key phases in most targeted attacks is what’s known as lateral movement. Attackers rarely luck out and manage to immediately compromise the computer
+## Symantec Internet Threat Report 2018
+
+<!--
+This lateral movement is the key thing here, I love this quote from the Symantec security report.
+
+“SHOW QUOTE, blah blah, most attackers do not luck out and get what they need first time, most attacks are due to lateral movement in a system.”
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## Example attack on vulnerable service
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/vulnerable_service.png){pad=100 offset-y=100}
+
+
+
+---
+{layout="06-1 (C)SR Case Study Challenge"}
+
+# Two factors which allowed lateral movement
+
+* Open network access
+* Traffic between services are not encrypted
+
+<!--
+We have two real problems here:
+open network access 
+
+
+traffic sent between services not encrypted
+-->
+
+---
+{layout="Thank You"}
+
+
