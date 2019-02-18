@@ -48,7 +48,7 @@ This lateral movement is the key thing here, I love this quote from the Symantec
 
 ## Example attack on vulnerable service
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/vulnerable_service.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/vulnerable_service_1.png){pad=100}
 
 
 
@@ -167,6 +167,132 @@ It is dynamic environments which cause us the greatest problem from a network se
 
 
 ---
-{layout="Thank You"}
+{layout="14 Title at Top"}
+
+## Problems with network and service segmentation in dynamic environments
+
+* Application deployment is disconnected from the network configuration
+* Applications are scheduled in a modern scheduler
+
+<!--
+Dynamic networks pose a number of problems when attempting to implement network and service level segmentation
+-->
 
 
+---
+{layout="14 Title at Top"}
+
+## Application deployment is disconnected from the network configuration
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/application_deployment_1.png){pad=100}
+
+<!--
+When applications are deployed using an autoscaling group, and a new instance is created, it is generally dynamically assigned an IP address from a pre-configured block. This particular application is rarely going to be running in isolation and needs to access services running inside the same network segment, and potentially another network segment. If we had taken a hardened approach to our network security, then there would be strict routing rules between the two segments which only allow traffic on a predefined list. In addition to this, we would have host level firewalls configured on the upstream service which again would only allow specific traffic.
+
+In a static world, this was simpler to solve as the application is deployed to a known location. The routing and firewalls rules could be updated at deploy time to enable the required access.
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## Application deployment is disconnected from the network configuration
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/application_deployment_2.png){pad=100}
+
+<!--
+In a dynamic world, there is a disconnect, the application is deployed independently to configuring network security and the allocated IP address, and potentially even ports are dynamic. Typically there is a manual process of updating the network security rules, which can slow down deployments.
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## Applications are scheduled in a modern scheduler
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/application_deployment_3.png){pad=100}
+
+<!--
+In this case, we also need to consider how applications inside the scheduler communicate with other network services. For example, you have a one hundred node cluster and one of your application instances needs to talk to a service in another network segment. The application running in the scheduler could be running on any of the one hundred nodes. This makes it challenging to determine which IP should be whitelisted. A scheduler often moves applications between nodes dynamically, and this causes a constant requirement for routing and firewall rules to be updated.
+
+One of the unfortunate side effects of this complexity can be that security is relaxed, network segmentation is reduced to blocks of routing rules rather than absolute addresses. Entire clusters are allowed routing rather than just the nodes which are running specific applications. And from a service perspective, too much trust is applied to a local network segment. From a security perspective this is suboptimal and increases the applications attack surface, there needs a consistent and centralized way to manage and understand network and service segmentation.
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## Network / Service segmentation with intention based security
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/application_deployment_4.png){pad=100}
+
+<!--
+The solution to the complexity and to increase our network security is to remove the need to configure location based security rules and move to an Intention-based model. Intention-based security builds rules on identity rather than location. For example, we can define an intention which states that the front-end service needs to communicate with the payment service.
+
+Defining network segmentation through Intentions alleviates the complexity of traditional network segmentation and allows tighter control of network security rules. With Intentions, you describe security at an application level, not a network location level.
+-->
+
+
+---
+{layout="09 Section Title - Consul"}
+
+# Problem 2: Traffic between services is not encrypted
+
+<!--
+The reason we encrypt traffic between the client and the server is so that nobody can read this data if it is intercepted it in transit.  This is a known problem there are e number of ways to do this from simply snooping insecure hotel wifi and networks, fake wifi hotspots, and even more advanced techniques such as intercepting traffic inside the datacenter.
+
+Where TLS keeps that traffic safe is that the data is encrypted between the client and the termination point.
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## Example attack on vulnerable service
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/vulnerable_service_2.png){pad=100}
+
+<!--
+Where things start to fall down is that data is encrypted from the client to the termination point.  In many systems this is not the destination service but an external router or load balancer.  Traffic is often forwarded on in an unencrypted form to the destination service.  We have already seen that it is possible to bypass the firewall and gain access to the system.  If I can read your systems traffic from the wire in an unencrypted form then potentially I do not need to to go any deeper into your system.  Consider this flow, I have a front end application where I submit payment information, actually the payment system and the database which it uses is incredibly well protected, the passwords are strong the data is encrypted at rest and the system has access correctly configured in terms of read and write.  The data contained within this system is incredibly lucrative for me as an attacker, I can get names addresses, credit card numbers, expiry and CVC numbers.  It is the holy grail.  And you as developers and operators have done an incredible job at securing it, in fact such a great job I can not break the system.
+
+Except, I don’t need to, if you are not securing the data between your edge and your internal services then I can read this data straight off the wire before it even hits the payment system.  Yes this is slower than exporting a mother load of information from the database but it all depends on how long I am in your system before I get detected.
+-->
+
+
+---
+{layout="09 Section Title - Consul"}
+
+# "it takes on average 180 days, to detect a breach"
+
+<!--
+Owasp states that it takes on average 180 days, yes 180 days for an attack to be detected.  If you consider a recent attack on a major airline which used a harvesting approach rather than an attack on a database over half a million credit card details were exposed.  Ok this particular attack injected a vulnerability client side but what I am trying to get across is that that there is potentially a huge amount of sensitive data which flows through your systems.  A huge amount of data which I am sitting quietly collecting.
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## Implementing and managing certificates is hard. Reality, a service mesh can do all this for you
+
+* You need to manage a Certificate Authority (CA)
+* Have to distribute, and rotate certificates and keys
+* Application code needs to be changed to handle TLS termination
+
+<!--
+The second point I will however concede is not so easy, you need to manage a certificate authority distribute keys and certificates to applications, change application code so that your servers terminate with TLS.  You need to rotate certificates and keys, understand how you are going to manage the lifecycle of your application when this rotation takes place.  Not impossible but not easy.  This is where the service mesh excels, the mesh managed the certificates, delivery, rotation and termination, you just add an additional sidecar.
+-->
+
+
+---
+{layout="14 Title at Top - 2 Col"}
+
+## Data plane - How Connect Secures Traffic
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_1.png){pad=100}
+
+{.column}
+
+1. Envoy contacts the local Consul client to obtain certificates and keys required to enable Mutual TLS, this is through a bi-directional gRPC connection using Envoys xDS admin API
+
+<!--
+-->
