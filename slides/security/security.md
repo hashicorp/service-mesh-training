@@ -69,6 +69,26 @@ traffic sent between services not encrypted
 -->
 
 ---
+{layout="09 Section Title - Consul"}
+
+# Problem 1:  Open network access
+
+<!--
+Let’s address the first problem with open network access, we have already discussed that an attacker is going to attempt to move laterally inside your system.
+-->
+
+---
+{layout="14 Title at Top"}
+
+## Traditional approach to security was a perimeter firewall
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/firewall.png){pad=100}
+
+<!--
+The traditional approach to restrict access to services was to use a perimeter firewall, the fundamental problem with a perimeter firewall is that it assumes that it can not be bypassed and as we have already seen it, it can and potentially by someone with a low level of skill.  I.e. me.
+-->
+
+---
 {layout="Thank You"}
 
 
