@@ -296,3 +296,64 @@ The second point I will however concede is not so easy, you need to manage a cer
 
 <!--
 -->
+
+
+---
+{layout="14 Title at Top - 2 Col"}
+
+## Data plane - How Connect Secures Traffic
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_2.png){pad=100}
+
+{.column}
+
+2. The Consul client creates the x509 certificate containing the SPIFFE id for the proxy
+3. It requests this certificate to be signed by the Consul server
+
+<!--
+-->
+
+
+---
+{layout="14 Title at Top - 2 Col"}
+
+## Data plane - How Connect Secures Traffic
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_3.png){pad=100}
+
+{.column}
+
+4. The certificate and key bundle is sent back to the proxy which it uses to secure the inbound connection and identify itself for outbound connections
+
+<!--
+-->
+
+
+---
+{layout="14 Title at Top - 2 Col"}
+
+## Data plane - How Connect Secures Traffic
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_4.png){pad=100}
+
+{.column}
+
+5. The client starts a blocking connection to the server and waits for any updates to intentions or certificates
+6. Envoy listens for changes using the xDS API implemented in Consul
+
+<!--
+-->
+
+
+---
+{layout="14 Title at Top - 2 Col"}
+
+## Data plane - How Connect Secures Traffic
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_5.png){pad=100}
+
+7. Client initiates request and performs TLS Handshake
+8. Upstream service requests client certificate as part of mTLS request, validating cert is signed by valid source
+
+<!--
+-->
