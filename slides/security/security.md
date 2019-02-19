@@ -352,6 +352,8 @@ The second point I will however concede is not so easy, you need to manage a cer
 
 ![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_5.png){pad=100}
 
+{.column}
+
 7. Client initiates request and performs TLS Handshake
 8. Upstream service requests client certificate as part of mTLS request, validating cert is signed by valid source
 
