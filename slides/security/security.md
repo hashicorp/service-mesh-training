@@ -359,3 +359,86 @@ The second point I will however concede is not so easy, you need to manage a cer
 
 <!--
 -->
+
+
+---
+{layout="14 Title at Top - 2 Col"}
+
+## Data plane - How Connect Secures Traffic
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_6.png){pad=100}
+
+{.column}
+
+9. Envoy validates that the connections is allowed by calling the ext_authz filters api (once per new connection)
+10. If allowed the request is passed to the upstream service
+11. Send the response to the caller
+
+<!--
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## How do we segment the network?
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/segment_1.png){pad=100}
+
+<!--
+We discussed this problem before that we had limited capability to lock down our network to a particular node due to the dynamic way the scheduler operates, so how do we solve this problem with Consul Connect?
+
+The truth is we don't have to
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## How do we segment the network?
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/segment_2.png){pad=100}
+
+<!--
+Yes we have open network access to our service running in segment b but since we are securing things with connect this is OK, the ports for service B are accessible and open but they are secured automatically with service intentions and the connect proxy.  Let's take a deeper dive at how connect works to understand how things are secure.
+-->
+
+
+---
+{layout="09 Section Title - Consul"}
+
+# Summary
+
+<!--
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## Implementing and managing certificates is hard - Reality, Consul Connect can do all this for you
+
+* You need to manage a Certificate Authority (CA)
+* Have to distribute, and rotate certificates and keys
+* Application code needs to be change to handle TLS termination
+* Consul Connect has a built in CA, capable of leveraging HashiCorp Vault
+* Consul Connect manages key and certificate rotation
+* Sidecar proxy terminates TLS and implements Authz, no code changes
+
+<!--
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## Service and Network segmentation in Dynamic environments is hard - Reality, Consul Connect can do all this for you
+
+* Managing routing and firewall rules when application locations keep changing
+* Maintaining millions of rules in a large environment
+* Open networks due to complexity
+* Manage service policy through intentions
+* Leverage mTLS to service to service authorization
+
+<!--
+-->
