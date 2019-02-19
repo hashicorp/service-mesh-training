@@ -1,4 +1,4 @@
-# service-mesh-training
+# service-mesh-training  
 Code samples and Slides for QCon service mesh training March 2019
 
 # Building slides non docker
