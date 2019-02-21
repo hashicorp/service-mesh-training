@@ -46,8 +46,9 @@ resource "google_container_cluster" "cluster" {
       "https://www.googleapis.com/auth/logging.write",
     ]
 
-    workload_metadata_config = {
-      node_metadata = "SECURE"
-    }
+    # commented out b/c tf/gcp complaining about this being a beta feature
+    #workload_metadata_config = {
+      #node_metadata = "SECURE"
+    #}
   }
 }

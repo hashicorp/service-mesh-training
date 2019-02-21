@@ -1,15 +1,17 @@
 resource "google_project" "project" {
   count = "${length(var.emails)}"
 
-  name = "workshop-${count.index}"
-  project_id = "workshop-${count.index}"
-  org_id     = "${var.organization_id}"
+  name = "qcon-ldn-2019-v4-workshop-${count.index}"
+  project_id = "qcon-ldn-2019-v4-workshop-${count.index}"
+  #org_id     = "${var.organization_id}"
   billing_account = "${var.billing_account}"
+  folder_id = "${var.folder_id}"
 }
 
 resource "google_project_services" "services" {
   count = "${length(var.emails)}"
 
+  # How do you know the syntax for these lists?
   project  = "${element(google_project.project.*.project_id, count.index)}"
   services = [
     "admin.googleapis.com",

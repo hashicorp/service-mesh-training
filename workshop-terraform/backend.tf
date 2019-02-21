@@ -1,9 +1,7 @@
 terraform {
-  backend "remote" {
-    organization = "erikcorp"
-
-    workspaces {
-      name = "workshop"
-    }
+  backend "gcs" {
+    bucket = "qcon-ldn19-tf-admin"
+    prefix = "terraform/state"
+    project = "qcon-ldn19-tf-admin"
   }
 }
