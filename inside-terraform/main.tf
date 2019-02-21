@@ -1,0 +1,3 @@
+provider "kubernetes" {}
+provider "helm" {}
+
