@@ -8,6 +8,11 @@ variable "organization_id" {
   type = "string"
 }
 
+variable "folder_id" {
+  description = "The folder to create the project under"
+  type = "string"
+}
+
 variable "emails" {
   description = "List of attendee email addresses"
   type = "list"
