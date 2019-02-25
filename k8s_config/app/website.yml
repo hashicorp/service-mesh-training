@@ -1,0 +1,255 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: emojify-website-configmap
+data:
+  config: |
+    window.env = {};
+    window.env.config = {
+      AUTH_URL: '/auth',
+      API_URL: '/api/',
+      HOME_URL: '/',
+      PAYMENT_URL: '/api/payments',
+      PAYMENT_ENABLED: false,
+      OAUTH_ENABLED: false,
+      AUTH_DISABLED: true
+    };
+  envoy-bootstrap: |
+    admin:
+      access_log_path: "/dev/null"
+      address:
+        socket_address:
+          address: 127.0.0.1
+          port_value: 19000
+    node:
+      cluster: "${POD_NAME}-emojify-website-proxy"
+      id: "${POD_NAME}-emojify-website-proxy"
+    static_resources:
+      clusters:
+      - name: local_agent
+        connect_timeout: 1s
+        type: STATIC
+        http2_protocol_options: {}
+        hosts:
+        - socket_address:
+           address: "${HOST_IP}"
+           port_value: "8502"
+    dynamic_resources:
+      lds_config:
+        ads: {}
+      cds_config:
+        ads: {}
+      ads_config:
+        api_type: GRPC
+        grpc_services:
+          envoy_grpc:
+            cluster_name: local_agent
+    stats_sinks:
+    - name: "envoy.dog_statsd"
+      config:
+        address: 
+          socket_address:
+            address: "127.0.0.1"
+            port_value: 9125
+        prefix: "envoy"
+    stats_config:
+      use_all_default_tags: true
+  consul-config: |
+    services {
+      id   = "${POD_NAME}-emojify-website-proxy"
+      name = "emojify-website-proxy"
+      kind = "connect-proxy"
+      address = "${POD_IP}"
+      port = 20000
+    
+      proxy {
+        destination_service_name = "emojify-website"
+        destination_service_id = "${POD_NAME}-emojify-website"
+        local_service_address = "127.0.0.1"
+        local_service_port = 5000
+        
+        config {
+          envoy_public_listener_json = <<EOL
+            {
+              "@type": "type.googleapis.com/envoy.api.v2.Listener",
+              "name": "public_listener:${POD_IP}:20000",
+              "address": {
+                "socketAddress": {
+                  "address": "${POD_IP}",
+                  "portValue": 20000
+                }
+              },
+              "filterChains": [
+                {
+                  "filters": [
+                    {
+                      "name": "envoy.http_connection_manager",
+                      "config": {
+                        "stat_prefix": "ingress_website",
+                        "route_config": {                
+                          "name": "local_route",         
+                          "virtual_hosts": [             
+                            {                            
+                              "name": "backend",         
+                              "domains": ["*"],          
+                              "routes": [                
+                                {                        
+                                  "match": {             
+                                    "prefix": "/"        
+                                  },                     
+                                  "route": {             
+                                    "cluster": "local_app"
+                                  }                      
+                                }                        
+                              ]                          
+                            }                            
+                          ]                              
+                        },                               
+                        "http_filters": [                
+                          {                              
+                            "name": "envoy.router",      
+                            "config": {}                 
+                          }                              
+                        ]                                
+                      }                                  
+                    }                                    
+                  ]                                      
+                }                                        
+              ]                                          
+            }                                          
+          EOL
+        }
+      }
+    
+      checks {
+        name = "Proxy Public Listener"
+        tcp = "${POD_IP}:20000"
+        interval = "10s"
+        deregister_critical_service_after = "1m"
+      }
+    
+      checks {
+        name = "Destination Alias"
+        alias_service = "emojify-website"
+      }
+    }
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emojify-website
+  labels:
+    app: emojify-website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emojify-website
+  template:
+    metadata:
+      labels:
+        app: emojify-website
+      annotations:
+        "prometheus_io_scrape": "true"
+    spec:
+      volumes:
+      - name: config
+        configMap:
+          name: emojify-website-configmap
+          items:
+          - key: config
+            path: env.js
+      - name: envoy-init
+        configMap:
+          name: emojify-website-configmap
+          items:
+          - key: envoy-bootstrap
+            path: envoy_bootstrap.yaml
+          - key: consul-config
+            path: envoy_consul_config.hcl
+      - name: envoy-config
+        emptyDir: {}
+      containers:
+
+      - name: emojify-website
+        image: "nicholasjackson/emojify-website:v0.5.9"
+        imagePullPolicy: Always
+        command: ["serve"]
+        args: ["-s", "build"]
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: config
+          mountPath: /app/build/config/
+          readOnly: true
+        - name: envoy-config
+          mountPath: /consul-init
+          readOnly: false
+
+      - name: envoy-sidecar
+        image: "envoyproxy/envoy-alpine:v1.8.0"
+        command: ["envoy"]
+        args: ["-c","/consul-init/bootstrap.yaml"]
+        ports:
+          - containerPort: 20000
+        volumeMounts:
+        - name: envoy-config
+          mountPath: /consul-init
+          readOnly: true
+        lifecycle:
+          preStop:
+            exec:
+              command: [
+               "sh",
+               "-c",
+               "/consul-init/consul services deregister -http-addr=http://${HOST_IP}:8500 -id=${POD_NAME}-emojify-website-proxy"
+               ]
+        env:
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        
+      - name: prometheus-statsd
+        image: prom/statsd-exporter:latest
+        ports:
+          - name: metrics
+            containerPort: 9102
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+      
+      initContainers:
+      - name: envoy-init
+        image: "nicholasjackson/envoy-init:latest"
+        imagePullPolicy: Always
+        env:
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        volumeMounts:
+        - name: envoy-config
+          mountPath: /consul-init
+          readOnly: false
+        - name: envoy-init
+          mountPath: /init
+          readOnly: false
+

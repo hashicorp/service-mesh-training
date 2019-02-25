@@ -1,0 +1,305 @@
+{
+ "configs": [
+  {
+   "@type": "type.googleapis.com/envoy.admin.v2alpha.BootstrapConfigDump",
+   "bootstrap": {
+    "node": {
+     "id": "emojify-ingress-56846d5cd9-2kpf5-emojify-ingress-proxy",
+     "cluster": "emojify-ingress-56846d5cd9-2kpf5-emojify-ingress-proxy",
+     "build_version": "5d25f466c3410c0dfa735d7d4358beb76b2da507/1.8.0/Clean/RELEASE"
+    },
+    "static_resources": {
+     "clusters": [
+      {
+       "name": "local_agent",
+       "connect_timeout": "1s",
+       "hosts": [
+        {
+         "socket_address": {
+          "address": "10.133.83.15",
+          "port_value": 8502
+         }
+        }
+       ],
+       "http2_protocol_options": {}
+      }
+     ]
+    },
+    "dynamic_resources": {
+     "lds_config": {
+      "ads": {}
+     },
+     "cds_config": {
+      "ads": {}
+     },
+     "ads_config": {
+      "api_type": "GRPC",
+      "grpc_services": [
+       {
+        "envoy_grpc": {
+         "cluster_name": "local_agent"
+        }
+       }
+      ]
+     }
+    },
+    "stats_sinks": [
+     {
+      "name": "envoy.statsd",
+      "config": {
+       "prefix": "envoy",
+       "address": {
+        "socket_address": {
+         "address": "127.0.0.1",
+         "port_value": 9125
+        }
+       }
+      }
+     }
+    ],
+    "admin": {
+     "access_log_path": "/dev/null",
+     "address": {
+      "socket_address": {
+       "address": "127.0.0.1",
+       "port_value": 19000
+      }
+     }
+    },
+    "stats_config": {
+     "use_all_default_tags": true
+    }
+   },
+   "last_updated": "2019-01-30T15:18:51.768Z"
+  },
+  {
+   "@type": "type.googleapis.com/envoy.admin.v2alpha.ClustersConfigDump",
+   "version_info": "00000019",
+   "static_clusters": [
+    {
+     "cluster": {
+      "name": "local_agent",
+      "connect_timeout": "1s",
+      "hosts": [
+       {
+        "socket_address": {
+         "address": "10.133.83.15",
+         "port_value": 8502
+        }
+       }
+      ],
+      "http2_protocol_options": {}
+     },
+     "last_updated": "2019-01-30T15:18:51.772Z"
+    }
+   ],
+   "dynamic_active_clusters": [
+    {
+     "version_info": "00000001",
+     "cluster": {
+      "name": "local_app",
+      "connect_timeout": "5s",
+      "hosts": [
+       {
+        "socket_address": {
+         "address": "127.0.0.1",
+         "port_value": 80
+        }
+       }
+      ]
+     },
+     "last_updated": "2019-01-30T15:18:51.780Z"
+    },
+    {
+     "version_info": "00000001",
+     "cluster": {
+      "name": "service:emojify-api",
+      "type": "EDS",
+      "eds_cluster_config": {
+       "eds_config": {
+        "ads": {}
+       }
+      },
+      "connect_timeout": "5s",
+      "tls_context": {
+       "common_tls_context": {
+        "tls_params": {},
+        "tls_certificates": [
+         {
+          "certificate_chain": {
+           "inline_string": "-----BEGIN CERTIFICATE-----\nMIICozCCAkigAwIBAgIEAVyC/jAKBggqhkjOPQQDAjAWMRQwEgYDVQQDEwtDb25z\ndWwgQ0EgODAeFw0xOTAxMjkxMTQ3MzFaFw0xOTAyMDExMTQ3MzFaMBoxGDAWBgNV\nBAMTD2Vtb2ppZnktaW5ncmVzczBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBGI\nnAyEgJDBEo6Q9IPuxK+qyoVI9Ujd0HpSrSSQiEFZhPnqcr7a4T00vt3v/0N0XHXz\nfvvQVRDGxpoj/63TA9KjggF+MIIBejAOBgNVHQ8BAf8EBAMCA7gwHQYDVR0lBBYw\nFAYIKwYBBQUHAwIGCCsGAQUFBwMBMAwGA1UdEwEB/wQCMAAwaAYDVR0OBGEEXzNl\nOmU0OjA4OjgxOmUxOjIyOjBhOjU5Ojk0Ojk3OmYxOmRhOmFjOjA4OjQ2OjYxOjZh\nOjk5OjljOmMyOjU2OjcwOjkxOjUwOmE2OjczOjk4OmFiOjM5OmRiOjZiOjE0MGoG\nA1UdIwRjMGGAXzNlOmU0OjA4OjgxOmUxOjIyOjBhOjU5Ojk0Ojk3OmYxOmRhOmFj\nOjA4OjQ2OjYxOjZhOjk5OjljOmMyOjU2OjcwOjkxOjUwOmE2OjczOjk4OmFiOjM5\nOmRiOjZiOjE0MGUGA1UdEQReMFyGWnNwaWZmZTovLzg1YWEyMzc2LWY0YTctMzk3\nZS0yNDRmLTQyOTY2MDRhMjIyYS5jb25zdWwvbnMvZGVmYXVsdC9kYy9kYzEvc3Zj\nL2Vtb2ppZnktaW5ncmVzczAKBggqhkjOPQQDAgNJADBGAiEAt0cZpsN1QkN9bQ6H\nbg4lwVVpIqNVWSMoUD+n+scaSX0CIQDmZuqV8qt8ogIuS6BVyUTFHQuZzFsJ8EW9\ns05MeCguwg==\n-----END CERTIFICATE-----\n"
+          },
+          "private_key": {
+           "inline_string": "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIKdRy254/cPIBCQ5CvIXJ3gjD2kjJdueotKjiqJ2PjokoAoGCCqGSM49\nAwEHoUQDQgAEEYicDISAkMESjpD0g+7Er6rKhUj1SN3QelKtJJCIQVmE+epyvtrh\nPTS+3e//Q3RcdfN++9BVEMbGmiP/rdMD0g==\n-----END EC PRIVATE KEY-----\n"
+          }
+         }
+        ],
+        "validation_context": {
+         "trusted_ca": {
+          "inline_string": "-----BEGIN CERTIFICATE-----\nMIICWTCCAf+gAwIBAgIBCDAKBggqhkjOPQQDAjAWMRQwEgYDVQQDEwtDb25zdWwg\nQ0EgODAeFw0xOTAxMTIxNjU4MjZaFw0yOTAxMDkxNjU4MjZaMBYxFDASBgNVBAMT\nC0NvbnN1bCBDQSA4MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAExsxkWp5zm5Jk\n9itrMJV7mz2WqMqHjeu9JT0wMD+gxGRiNRF4mzA8wa3kkCNLzhQx8QDwvUcHC1gt\ncUdVJ0kk7qOCATwwggE4MA4GA1UdDwEB/wQEAwIBhjAPBgNVHRMBAf8EBTADAQH/\nMGgGA1UdDgRhBF8zZTplNDowODo4MTplMToyMjowYTo1OTo5NDo5NzpmMTpkYTph\nYzowODo0Njo2MTo2YTo5OTo5YzpjMjo1Njo3MDo5MTo1MDphNjo3Mzo5ODphYjoz\nOTpkYjo2YjoxNDBqBgNVHSMEYzBhgF8zZTplNDowODo4MTplMToyMjowYTo1OTo5\nNDo5NzpmMTpkYTphYzowODo0Njo2MTo2YTo5OTo5YzpjMjo1Njo3MDo5MTo1MDph\nNjo3Mzo5ODphYjozOTpkYjo2YjoxNDA/BgNVHREEODA2hjRzcGlmZmU6Ly84NWFh\nMjM3Ni1mNGE3LTM5N2UtMjQ0Zi00Mjk2NjA0YTIyMmEuY29uc3VsMAoGCCqGSM49\nBAMCA0gAMEUCID6IBHcwRAtYZViXgj4EqeJH2S8aQFOV68EFN6vPITuqAiEA33ug\ntEF91We7+2hZ36528NEUYGLviCICoxTtlQTHv+I=\n-----END CERTIFICATE-----\n"
+         }
+        }
+       }
+      }
+     },
+     "last_updated": "2019-01-30T15:18:51.783Z"
+    },
+    {
+     "version_info": "00000001",
+     "cluster": {
+      "name": "service:emojify-website",
+      "type": "EDS",
+      "eds_cluster_config": {
+       "eds_config": {
+        "ads": {}
+       }
+      },
+      "connect_timeout": "5s",
+      "tls_context": {
+       "common_tls_context": {
+        "tls_params": {},
+        "tls_certificates": [
+         {
+          "certificate_chain": {
+           "inline_string": "-----BEGIN CERTIFICATE-----\nMIICozCCAkigAwIBAgIEAVyC/jAKBggqhkjOPQQDAjAWMRQwEgYDVQQDEwtDb25z\ndWwgQ0EgODAeFw0xOTAxMjkxMTQ3MzFaFw0xOTAyMDExMTQ3MzFaMBoxGDAWBgNV\nBAMTD2Vtb2ppZnktaW5ncmVzczBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBGI\nnAyEgJDBEo6Q9IPuxK+qyoVI9Ujd0HpSrSSQiEFZhPnqcr7a4T00vt3v/0N0XHXz\nfvvQVRDGxpoj/63TA9KjggF+MIIBejAOBgNVHQ8BAf8EBAMCA7gwHQYDVR0lBBYw\nFAYIKwYBBQUHAwIGCCsGAQUFBwMBMAwGA1UdEwEB/wQCMAAwaAYDVR0OBGEEXzNl\nOmU0OjA4OjgxOmUxOjIyOjBhOjU5Ojk0Ojk3OmYxOmRhOmFjOjA4OjQ2OjYxOjZh\nOjk5OjljOmMyOjU2OjcwOjkxOjUwOmE2OjczOjk4OmFiOjM5OmRiOjZiOjE0MGoG\nA1UdIwRjMGGAXzNlOmU0OjA4OjgxOmUxOjIyOjBhOjU5Ojk0Ojk3OmYxOmRhOmFj\nOjA4OjQ2OjYxOjZhOjk5OjljOmMyOjU2OjcwOjkxOjUwOmE2OjczOjk4OmFiOjM5\nOmRiOjZiOjE0MGUGA1UdEQReMFyGWnNwaWZmZTovLzg1YWEyMzc2LWY0YTctMzk3\nZS0yNDRmLTQyOTY2MDRhMjIyYS5jb25zdWwvbnMvZGVmYXVsdC9kYy9kYzEvc3Zj\nL2Vtb2ppZnktaW5ncmVzczAKBggqhkjOPQQDAgNJADBGAiEAt0cZpsN1QkN9bQ6H\nbg4lwVVpIqNVWSMoUD+n+scaSX0CIQDmZuqV8qt8ogIuS6BVyUTFHQuZzFsJ8EW9\ns05MeCguwg==\n-----END CERTIFICATE-----\n"
+          },
+          "private_key": {
+           "inline_string": "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIKdRy254/cPIBCQ5CvIXJ3gjD2kjJdueotKjiqJ2PjokoAoGCCqGSM49\nAwEHoUQDQgAEEYicDISAkMESjpD0g+7Er6rKhUj1SN3QelKtJJCIQVmE+epyvtrh\nPTS+3e//Q3RcdfN++9BVEMbGmiP/rdMD0g==\n-----END EC PRIVATE KEY-----\n"
+          }
+         }
+        ],
+        "validation_context": {
+         "trusted_ca": {
+          "inline_string": "-----BEGIN CERTIFICATE-----\nMIICWTCCAf+gAwIBAgIBCDAKBggqhkjOPQQDAjAWMRQwEgYDVQQDEwtDb25zdWwg\nQ0EgODAeFw0xOTAxMTIxNjU4MjZaFw0yOTAxMDkxNjU4MjZaMBYxFDASBgNVBAMT\nC0NvbnN1bCBDQSA4MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAExsxkWp5zm5Jk\n9itrMJV7mz2WqMqHjeu9JT0wMD+gxGRiNRF4mzA8wa3kkCNLzhQx8QDwvUcHC1gt\ncUdVJ0kk7qOCATwwggE4MA4GA1UdDwEB/wQEAwIBhjAPBgNVHRMBAf8EBTADAQH/\nMGgGA1UdDgRhBF8zZTplNDowODo4MTplMToyMjowYTo1OTo5NDo5NzpmMTpkYTph\nYzowODo0Njo2MTo2YTo5OTo5YzpjMjo1Njo3MDo5MTo1MDphNjo3Mzo5ODphYjoz\nOTpkYjo2YjoxNDBqBgNVHSMEYzBhgF8zZTplNDowODo4MTplMToyMjowYTo1OTo5\nNDo5NzpmMTpkYTphYzowODo0Njo2MTo2YTo5OTo5YzpjMjo1Njo3MDo5MTo1MDph\nNjo3Mzo5ODphYjozOTpkYjo2YjoxNDA/BgNVHREEODA2hjRzcGlmZmU6Ly84NWFh\nMjM3Ni1mNGE3LTM5N2UtMjQ0Zi00Mjk2NjA0YTIyMmEuY29uc3VsMAoGCCqGSM49\nBAMCA0gAMEUCID6IBHcwRAtYZViXgj4EqeJH2S8aQFOV68EFN6vPITuqAiEA33ug\ntEF91We7+2hZ36528NEUYGLviCICoxTtlQTHv+I=\n-----END CERTIFICATE-----\n"
+         }
+        }
+       }
+      }
+     },
+     "last_updated": "2019-01-30T15:18:51.782Z"
+    }
+   ]
+  },
+  {
+   "@type": "type.googleapis.com/envoy.admin.v2alpha.ListenersConfigDump",
+   "version_info": "00000019",
+   "dynamic_active_listeners": [
+    {
+     "version_info": "00000001",
+     "listener": {
+      "name": "public_listener:10.244.25.6:20000",
+      "address": {
+       "socket_address": {
+        "address": "10.244.25.6",
+        "port_value": 20000
+       }
+      },
+      "filter_chains": [
+       {
+        "tls_context": {
+         "common_tls_context": {
+          "tls_params": {},
+          "tls_certificates": [
+           {
+            "certificate_chain": {
+             "inline_string": "-----BEGIN CERTIFICATE-----\nMIICozCCAkigAwIBAgIEAVyC/jAKBggqhkjOPQQDAjAWMRQwEgYDVQQDEwtDb25z\ndWwgQ0EgODAeFw0xOTAxMjkxMTQ3MzFaFw0xOTAyMDExMTQ3MzFaMBoxGDAWBgNV\nBAMTD2Vtb2ppZnktaW5ncmVzczBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBGI\nnAyEgJDBEo6Q9IPuxK+qyoVI9Ujd0HpSrSSQiEFZhPnqcr7a4T00vt3v/0N0XHXz\nfvvQVRDGxpoj/63TA9KjggF+MIIBejAOBgNVHQ8BAf8EBAMCA7gwHQYDVR0lBBYw\nFAYIKwYBBQUHAwIGCCsGAQUFBwMBMAwGA1UdEwEB/wQCMAAwaAYDVR0OBGEEXzNl\nOmU0OjA4OjgxOmUxOjIyOjBhOjU5Ojk0Ojk3OmYxOmRhOmFjOjA4OjQ2OjYxOjZh\nOjk5OjljOmMyOjU2OjcwOjkxOjUwOmE2OjczOjk4OmFiOjM5OmRiOjZiOjE0MGoG\nA1UdIwRjMGGAXzNlOmU0OjA4OjgxOmUxOjIyOjBhOjU5Ojk0Ojk3OmYxOmRhOmFj\nOjA4OjQ2OjYxOjZhOjk5OjljOmMyOjU2OjcwOjkxOjUwOmE2OjczOjk4OmFiOjM5\nOmRiOjZiOjE0MGUGA1UdEQReMFyGWnNwaWZmZTovLzg1YWEyMzc2LWY0YTctMzk3\nZS0yNDRmLTQyOTY2MDRhMjIyYS5jb25zdWwvbnMvZGVmYXVsdC9kYy9kYzEvc3Zj\nL2Vtb2ppZnktaW5ncmVzczAKBggqhkjOPQQDAgNJADBGAiEAt0cZpsN1QkN9bQ6H\nbg4lwVVpIqNVWSMoUD+n+scaSX0CIQDmZuqV8qt8ogIuS6BVyUTFHQuZzFsJ8EW9\ns05MeCguwg==\n-----END CERTIFICATE-----\n"
+            },
+            "private_key": {
+             "inline_string": "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIKdRy254/cPIBCQ5CvIXJ3gjD2kjJdueotKjiqJ2PjokoAoGCCqGSM49\nAwEHoUQDQgAEEYicDISAkMESjpD0g+7Er6rKhUj1SN3QelKtJJCIQVmE+epyvtrh\nPTS+3e//Q3RcdfN++9BVEMbGmiP/rdMD0g==\n-----END EC PRIVATE KEY-----\n"
+            }
+           }
+          ],
+          "validation_context": {
+           "trusted_ca": {
+            "inline_string": "-----BEGIN CERTIFICATE-----\nMIICWTCCAf+gAwIBAgIBCDAKBggqhkjOPQQDAjAWMRQwEgYDVQQDEwtDb25zdWwg\nQ0EgODAeFw0xOTAxMTIxNjU4MjZaFw0yOTAxMDkxNjU4MjZaMBYxFDASBgNVBAMT\nC0NvbnN1bCBDQSA4MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAExsxkWp5zm5Jk\n9itrMJV7mz2WqMqHjeu9JT0wMD+gxGRiNRF4mzA8wa3kkCNLzhQx8QDwvUcHC1gt\ncUdVJ0kk7qOCATwwggE4MA4GA1UdDwEB/wQEAwIBhjAPBgNVHRMBAf8EBTADAQH/\nMGgGA1UdDgRhBF8zZTplNDowODo4MTplMToyMjowYTo1OTo5NDo5NzpmMTpkYTph\nYzowODo0Njo2MTo2YTo5OTo5YzpjMjo1Njo3MDo5MTo1MDphNjo3Mzo5ODphYjoz\nOTpkYjo2YjoxNDBqBgNVHSMEYzBhgF8zZTplNDowODo4MTplMToyMjowYTo1OTo5\nNDo5NzpmMTpkYTphYzowODo0Njo2MTo2YTo5OTo5YzpjMjo1Njo3MDo5MTo1MDph\nNjo3Mzo5ODphYjozOTpkYjo2YjoxNDA/BgNVHREEODA2hjRzcGlmZmU6Ly84NWFh\nMjM3Ni1mNGE3LTM5N2UtMjQ0Zi00Mjk2NjA0YTIyMmEuY29uc3VsMAoGCCqGSM49\nBAMCA0gAMEUCID6IBHcwRAtYZViXgj4EqeJH2S8aQFOV68EFN6vPITuqAiEA33ug\ntEF91We7+2hZ36528NEUYGLviCICoxTtlQTHv+I=\n-----END CERTIFICATE-----\n"
+           }
+          }
+         },
+         "require_client_certificate": true
+        },
+        "filters": [
+         {
+          "name": "envoy.ext_authz",
+          "config": {
+           "stat_prefix": "connect_authz",
+           "grpc_service": {
+            "envoy_grpc": {
+             "cluster_name": "local_agent"
+            },
+            "initial_metadata": [
+             {
+              "key": "x-consul-token"
+             }
+            ]
+           }
+          }
+         },
+         {
+          "name": "envoy.tcp_proxy",
+          "config": {
+           "cluster": "local_app",
+           "stat_prefix": "public_listener"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     "last_updated": "2019-01-30T15:18:51.788Z"
+    },
+    {
+     "version_info": "00000001",
+     "listener": {
+      "name": "service:emojify-website:127.0.0.1:8000",
+      "address": {
+       "socket_address": {
+        "address": "127.0.0.1",
+        "port_value": 8000
+       }
+      },
+      "filter_chains": [
+       {
+        "filters": [
+         {
+          "name": "envoy.tcp_proxy",
+          "config": {
+           "stat_prefix": "service:emojify-website",
+           "cluster": "service:emojify-website"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     "last_updated": "2019-01-30T15:18:51.788Z"
+    },
+    {
+     "version_info": "00000001",
+     "listener": {
+      "name": "service:emojify-api:127.0.0.1:8001",
+      "address": {
+       "socket_address": {
+        "address": "127.0.0.1",
+        "port_value": 8001
+       }
+      },
+      "filter_chains": [
+       {
+        "filters": [
+         {
+          "name": "envoy.tcp_proxy",
+          "config": {
+           "stat_prefix": "service:emojify-api",
+           "cluster": "service:emojify-api"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     "last_updated": "2019-01-30T15:18:51.789Z"
+    }
+   ]
+  }
+ ]
+}

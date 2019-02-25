@@ -1,0 +1,126 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emojify-api-with-fault
+  labels:
+    app: emojify-api-with-fault
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emojify-api
+  template:
+    metadata:
+      labels:
+        app: emojify-api
+      annotations:
+        "prometheus_io_scrape": "true"
+    spec:
+      volumes:
+      - name: envoy-init
+        configMap:
+          name: emojify-api-configmap
+          items:
+          - key: envoy-bootstrap
+            path: envoy_bootstrap.yaml
+          - key: consul-config
+            path: envoy_consul_config.hcl
+      - name: envoy-config
+        emptyDir: {}
+      containers:
+
+      - name: emojify-api
+        image: "nicholasjackson/emojify-api:v0.6.5"
+        imagePullPolicy: Always
+        command: ["/service/emojify-api"]
+        args: [
+          "-allow-origin=*",
+          "-authn-disable=true",
+          "-bind-address=0.0.0.0:9090",
+          "-statsd-server=127.0.0.1:9125",
+          "-path=/",
+          "-cache-error-rate=0.2", // Requests to the cache error 100% of the time
+          "-log_format=json",
+        ]
+        ports:
+        - containerPort: 9090
+        env:
+        - name: FACEBOX
+          value: http://localhost:8003
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 9090
+          initialDelaySeconds: 10
+          periodSeconds: 30
+
+      - name: envoy-sidecar
+        image: "envoyproxy/envoy-alpine:v1.8.0"
+        command: ["envoy"]
+        args: ["-c","/consul-init/bootstrap.yaml"]
+        ports:
+          - containerPort: 20000
+        volumeMounts:
+        - name: envoy-config
+          mountPath: /consul-init
+          readOnly: true
+        lifecycle:
+          preStop:
+            exec:
+              command: [
+               "sh",
+               "-c",
+               "/consul-init/consul services deregister -http-addr=http://${HOST_IP}:8500 -id=${POD_NAME}-emojify-api-proxy"
+               ]
+        env:
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        
+      - name: prometheus-statsd
+        image: prom/statsd-exporter:latest
+        ports:
+          - name: metrics
+            containerPort: 9102
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
+      
+      initContainers:
+      - name: envoy-init
+        image: "nicholasjackson/envoy-init:latest"
+        imagePullPolicy: Always
+        env:
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        volumeMounts:
+        - name: envoy-config
+          mountPath: /consul-init
+          readOnly: false
+        - name: envoy-init
+          mountPath: /init
+          readOnly: false
+
