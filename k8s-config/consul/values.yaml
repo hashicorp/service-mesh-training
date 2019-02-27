@@ -16,12 +16,12 @@ global:
 
   # Image is the name (and tag) of the Consul Docker image for clients and
   # servers below. This can be overridden per component.
-  image: "consul:1.4.1"
+  image: "nicholasjackson/consul-dev:latest"
 
   # imageK8S is the name (and tag) of the consul-k8s Docker image that
   # is used for functionality such as the catalog sync. This can be overridden
   # per component below.
-  imageK8S: "hashicorp/consul-k8s:0.4.0"
+  imageK8S: "hashicorp/consul-k8s:0.6.0"
 
   # Datacenter is the name of the datacenter that the agents should register
   # as. This shouldn't be changed once the Consul cluster is up and running
@@ -32,8 +32,8 @@ global:
 server:
   enabled: "-"
   image: null
-  replicas: 3
-  bootstrapExpect: 3 # Should <= replicas count
+  replicas: 1
+  bootstrapExpect: 1 # Should <= replicas count
 
   # storage and storageClass are the settings for configuring stateful
   # storage for the server pods. storage should be set to the disk size of
@@ -97,13 +97,13 @@ server:
 # within the Kube cluster. The current deployment model follows a traditional
 # DC where a single agent is deployed per node.
 client:
-  enabled: "-"
-  image: null
+  enabled: true
+  image: "nicholasjackson/consul-dev:latest"
   join: null
 
   # grpc should be set to true if the gRPC listener should be enabled.
   # This should be set to true if connectInject is enabled.
-  grpc: false
+  grpc: true
 
   # Resource requests, limits, etc. for the client cluster placement. This
   # should map directly to the value of the resources field for a PodSpec,
@@ -138,7 +138,7 @@ ui:
   # on the server nodes. This makes UI access via the service below (if
   # enabled) predictable rather than "any node" if you're running Consul
   # clients as well.
-  enabled: "-"
+  enabled: true
 
   # True if you want to create a Service entry for the Consul UI.
   #

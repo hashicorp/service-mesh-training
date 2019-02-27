@@ -213,10 +213,10 @@ spec:
               fieldPath: metadata.name
         resources:
           limits:
-            memory: 1000Mi
+            memory: 100Mi
           requests:
-            cpu: 1000m
-            memory: 1000Mi
+            cpu: 100m
+            memory: 100Mi
         
       - name: prometheus-statsd
         image: prom/statsd-exporter:latest
