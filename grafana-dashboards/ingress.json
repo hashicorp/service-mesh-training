@@ -70,11 +70,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate (container_cpu_usage_seconds_total{container_name=~\"emojify-ingress\"}[1m])",
+          "expr": "sum(rate (container_cpu_usage_seconds_total{container_name!=\"POD\",pod_name=~\"emojify-ingress-.*\",name=~\"^k8s_.*\"}[1m])) by(container_name)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{pod_name}}",
+          "legendFormat": "{{container_name}}",
           "refId": "A"
         }
       ],
@@ -82,7 +82,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "CPU",
+      "title": "Pod CPU",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -155,11 +155,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "container_memory_working_set_bytes{container_name=\"emojify-ingress\"}",
+          "expr": "sum(container_memory_working_set_bytes{container_name!=\"POD\",name=~\"^k8s_.*\",pod_name=~\"emojify-ingress-.*\"}) by (container_name)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{pod_name}}",
+          "legendFormat": "{{container_name}}",
           "refId": "A"
         }
       ],
@@ -167,7 +167,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Memory",
+      "title": "Pod Memory",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -207,7 +207,7 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "fill": 1,
@@ -230,7 +230,7 @@
         "total": false,
         "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
@@ -295,7 +295,7 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "fill": 1,
@@ -318,7 +318,7 @@
         "total": false,
         "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
@@ -390,7 +390,7 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "fill": 1,
@@ -413,7 +413,7 @@
         "total": false,
         "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
@@ -865,5 +865,5 @@
   "timezone": "",
   "title": "Ingress",
   "uid": "kcwk2x_iz",
-  "version": 35
+  "version": 37
 }
