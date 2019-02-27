@@ -46,6 +46,8 @@ spec:
       securityContext:
         fsGroup: 1000
       volumes:
+        - name: data
+          emptyDir: {}
         - name: config
           configMap:
             name: {{ template "consul.fullname" . }}-server-config
@@ -151,16 +153,4 @@ spec:
           resources:
             {{ tpl .Values.server.resources . | nindent 12 | trim }}
           {{- end }}
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: {{ .Values.server.storage }}
-        {{- if .Values.server.storageClass }}
-        storageClassName: {{ .Values.server.storageClass }}
-        {{- end }}
 {{- end }}
