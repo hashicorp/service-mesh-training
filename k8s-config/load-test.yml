@@ -15,7 +15,7 @@ data:
     class EmojifySimulation extends Simulation {
     
     	val httpProtocol = http
-    		.baseUrl("https://emojify.today")
+    		.baseUrl("http://localhost:30000")
     		.inferHtmlResources()
     		.acceptEncodingHeader("gzip, deflate")
     		.userAgentHeader("Mozilla/5.0 (X11; CrOS x86_64 11316.98.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.74 Safari/537.36")
