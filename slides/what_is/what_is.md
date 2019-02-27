@@ -1,7 +1,14 @@
 ---
 {layout="01 Main Title - Consul"}
 
-# Service Mesh - What is a Service Mesh
+# Service Mesh, QCon London 2019
+## Nic Jackson & Christie Koehler
+
+
+---
+{layout="01 Main Title - Consul"}
+
+# Part 1: What is a Service Mesh
 
 ## Nic Jackson & Christie Koehler
 
@@ -14,6 +21,81 @@
 <!--
 Stuff goes here, slides removed from my security deck
 -->
+
+---
+{layout="09 Section Title - Consul"}
+
+# Dynamic Environments
+
+<!--
+What really maes a service mesh necessary are dynamic environments, which are becominging increasingly common, whether your organization's infrastructure is primarily on-prem, in the cloud, or some mix of each. 
+-->
+
+---
+{layout="14 Title at Top"}
+
+## Definition of a dynamic environment
+
+* Applications and infrastructure subject to frequent changes
+* Subject to auto scaling or automated instance replacement
+* Applications running in a scheduler like Kubernetes
+
+
+<!--
+In the simplest terms, a dynamic environment is one where applications and infrastructure are subject to frequent changes, either manually through regular deployments and infrastructure changes, or without operator intervention triggered by auto scaling or automated instance replacement. Operating a scheduler like HashiCorp Nomad or Kubernetes exhibits this behaviour, as does leveraging the automated redundancy of autoscaling groups provided by many cloud providers. The effect, however, is not limited to cloud environments, any platform such as vSphere configured in a highly available mode can also be classified as a dynamic environment.
+-->
+
+---
+{layout="14 Title at Top"}
+
+## Components of a service mesh
+
+* service discovery
+* service segmentation
+* service configuration
+
+<!--
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## Service discovery
+
+![](https://raw.githubusercontent.com/christi3k/revealjs-poc/gh-pages/images/consul-service-mesh/service-registry-04.png){pad=100}
+
+<!--
+-->
+
+---
+{layout="14 Title at Top"}
+
+## Service segmentation
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/service_segmentation.png){pad=100}
+
+<!--
+Where network segmentation is concerned with securing traffic between zones, service segmentation secures traffic between services in the same zone. Service segmentation is a more granular approach and is particularly relevant to multi-tenanted environments such as schedulers where multiple applications are running on a single node.
+
+Implementing service segmentation depends on your operating environment and application infrastructure. Service segments are often applied through the configuration of software firewalls, software defined networks such as the overlay networks used by application schedulers, and more recently by leveraging a service mesh.
+
+Like network segmentation, the principle of least privilege is applied and service to service communication is only permitted where there is an explicit intention to allow this traffic.
+-->
+
+---
+{layout="14 Title at Top"}
+
+## Service configuration
+
+<!--
+
+Should we include this? 
+
+Those of you using Kubernetes will be using etcd for this. Those of you not using Kubernetes, may still need a service configuration solution, which Consul provides.
+
+-->
+
 
 ---
 {layout="14 Title at Top"}
@@ -72,3 +154,29 @@ The data plane is typically a local proxy which runs as a sidecar to your applic
 <!--
 Communication to the server is carried out through the local client, typically there is one of these running for each virtual machine or node in kubernetes.  The agent manages service registration, query of the service catalog, DNS interface, access to the key value and interaction with the Connect feature.  It understands the topology of the cluster including the state of the server and location of server nodes.  There is no need to manually load balance requests to the Consul server the local agent manages all this for you.
 -->
+
+---
+{layout="14 Title at Top"}
+
+## Service mesh benefits
+
+* security
+* observability
+* reliability
+
+<!--
+-->
+
+---
+{layout="14 Title at Top"}
+
+## Lab 0: Get started
+
+1. Login to Instruqt
+2. Get familiar with environment
+3. Install Consul with helm chart
+4. Install emojify app.
+
+<!--
+-->
+
