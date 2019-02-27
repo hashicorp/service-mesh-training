@@ -97,13 +97,13 @@ server:
 # within the Kube cluster. The current deployment model follows a traditional
 # DC where a single agent is deployed per node.
 client:
-  enabled: "-"
-  image: null
+  enabled: true
+  image: "nicholasjackson/consul-dev:latest"
   join: null
 
   # grpc should be set to true if the gRPC listener should be enabled.
   # This should be set to true if connectInject is enabled.
-  grpc: false
+  grpc: true
 
   # Resource requests, limits, etc. for the client cluster placement. This
   # should map directly to the value of the resources field for a PodSpec,
