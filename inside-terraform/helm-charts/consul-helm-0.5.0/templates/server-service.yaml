@@ -29,40 +29,40 @@ spec:
     - name: http
       port: 8500
       targetPort: 8500
-      nodePort: 8500
+      nodePort: 30010
     - name: serflan-tcp
       protocol: "TCP"
       port: 8301
       targetPort: 8301
-      nodePort: 8301
+      nodePort: 30011
     - name: serflan-udp
       protocol: "UDP"
       port: 8301
       targetPort: 8301
-      nodePort: 8301
+      nodePort: 30011
     - name: serfwan-tcp
       protocol: "TCP"
       port: 8302
       targetPort: 8302
-      nodePort: 8302
+      nodePort: 30012
     - name: serfwan-udp
       protocol: "UDP"
       port: 8302
       targetPort: 8302
-      nodePort: 8302
+      nodePort: 30012
     - name: server
       port: 8300
       targetPort: 8300
-      nodePort: 8300
+      nodePort: 30013
     - name: dns-tcp
       protocol: "TCP"
       port: 8600
-      nodePort: 8600
+      nodePort: 30014
       targetPort: dns-tcp
     - name: dns-udp
       protocol: "UDP"
       port: 8600
-      nodePort: 8600
+      nodePort: 30014
       targetPort: dns-udp
   selector:
     app: {{ template "consul.name" . }}
