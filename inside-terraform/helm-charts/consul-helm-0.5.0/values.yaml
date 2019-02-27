@@ -16,7 +16,7 @@ global:
 
   # Image is the name (and tag) of the Consul Docker image for clients and
   # servers below. This can be overridden per component.
-  image: "consul:1.4.1"
+  image: "nicholasjackson/consul-dev:latest"
 
   # imageK8S is the name (and tag) of the consul-k8s Docker image that
   # is used for functionality such as the catalog sync. This can be overridden
