@@ -84,7 +84,7 @@ spec:
           subPath: EmojifySimulation.scala
           readOnly: true
         resources:
-          limit:
+          limits:
             cpu: 300m
           requests:
             cpu: 100m
