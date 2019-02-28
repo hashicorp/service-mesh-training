@@ -2,11 +2,15 @@
 
 **Objective:** Install Consul into your Kubernetes cluster using Helm.
 
+## Background
+
 [Helm](https://helm.sh) is a package manager for Kubernetes. We'll use it to install and configure Consul in our workshop Kubernetes cluster.
 
 If you're using the Instruqt environment, Helm is already installed. If you're using your own Kubernetes cluster, you may need to [install](https://github.com/helm/helm#install) it.
 
 Helm charts come with default values for packages, but we need to override some of the default values. As with Kubernetes config, Helm charts are configured using yaml.
+
+## Step 1: Examine values.yaml
 
 Using a command line editor (e.g. vim, pico, emacs) or the visual Instruqt editor (Editor tab), take a look at the `values.yaml` file in this directory. You'll see several configuration values ([documentation](https://www.consul.io/docs/platform/k8s/helm.html#configuration-values-)).
 
@@ -16,6 +20,8 @@ Guiding questions:
 - Are we enabling Consul Connect features at this time? ([hint](https://www.consul.io/docs/platform/k8s/helm.html#v-server-connect))
 - Are we enabling the Consul UI at this time? ([hint](https://www.consul.io/docs/platform/k8s/helm.html#v-ui))
 - Will GRPC be enabled for Consul clients? ([hint](https://www.consul.io/docs/platform/k8s/helm.html#v-client-grpc))
+
+## Step 2: Install Consul
 
 Once you are familar with the configuration options, go ahead and install Consul using `helm install -f <config> <chart>`:
 
@@ -59,6 +65,20 @@ NAME                           TYPE       CLUSTER-IP      EXTERNAL-IP  PORT(S)  
 solitary-marmot-consul-dns     ClusterIP  10.107.127.61   <none>       53/TCP,53/UDP                          1s
 solitary-marmot-consul-server  NodePort   10.109.158.40   <none>       8500:30010/TCP,8301:30011/TCP,8301:30011/UDP,8302:30012/TCP,8302:30012/UDP,8300:30013/TCP,8600:30014/TCP,8600:30014/UDP  1s
 solitary-marmot-consul-ui      ClusterIP  10.111.114.137  <none>       80/TCP
+```
+
+## Step 3: Confirm Consul is running
+
+Using `kubectl get services`:
+
+```
+kubectl get services
+
+NAME                            TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                                                               AGE
+kubernetes                      ClusterIP   10.96.0.1        <none>        443/TCP                                                               37m
+solitary-marmot-consul-dns      ClusterIP   10.107.127.61    <none>        53/TCP,53/UDP                                                               23m
+solitary-marmot-consul-server   NodePort    10.109.158.40    <none>        8500:30010/TCP,8301:30011/TCP,8301:30011/UDP,8302:30012/TCP,8302:30012/UDP,8300:30013/TCP,8600:30014/TCP,8600:30014/UDP   23m
+solitary-marmot-consul-ui       ClusterIP   10.111.114.137   <none>        80/TCP                                                               23m
 ```
 
 If you're using the Instruqt environment, visit the **Consul** tab and you should see the Consul Web UI:
