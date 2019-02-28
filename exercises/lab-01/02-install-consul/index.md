@@ -1,4 +1,4 @@
-# Lab 01-B: Install Consul via Helm Chart
+# Lab 01, Exercise 02: Install Consul via Helm Chart
 
 **Objective:** Install Consul into your Kubernetes cluster using Helm.
 

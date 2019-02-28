@@ -1,4 +1,4 @@
-# Lab 01-D: Install Prometheus and Grafana
+# Lab 01, Exercise 04: Install Prometheus and Grafana
 
 **Objective:** Install [Prometheus](https://prometheus.io) and [Grafana](https://grafana.com) into Kubernetes cluster.
 
