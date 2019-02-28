@@ -2,6 +2,11 @@
 
 **Objective:** Install Consul into your Kubernetes cluster using Helm.
 
+* [Background](#background)
+* [Step 1: Examine values.yaml](#step-1-examine-valuesyaml)
+* [Step 2: Install Consul](#step-2-install-consul)
+* [Step 3: Confirm Consul is running](#step-3-confirm-consul-is-running)
+
 ## Background
 
 [Helm](https://helm.sh) is a package manager for Kubernetes. We'll use it to install and configure Consul in our workshop Kubernetes cluster.
