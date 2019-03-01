@@ -105,8 +105,9 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(rate(api_service_emojify_called_count{status!=\"200\"}[1m])+rate(api_service_cache_called_count{status!=\"200\"}[1m]))",
+          "expr": "sum(rate(api_service_emojify_called_count{status!=\"200\"}[1m])+rate(api_service_cache_called_count{status!=\"200\"}[1m]))+sum(rate(api_service_error_injected[1m]))",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
           "refId": "A"
@@ -409,7 +410,7 @@
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
@@ -528,7 +529,7 @@
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
@@ -632,7 +633,7 @@
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
@@ -729,7 +730,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ip}}",
+          "legendFormat": "{{name}}-{{status}}",
           "refId": "A"
         }
       ],
@@ -819,7 +820,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ip}}",
+          "legendFormat": "{{name}}-{{status}}",
           "refId": "A"
         }
       ],
@@ -909,7 +910,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{controller_name}}",
+          "legendFormat": "{{name}}",
           "refId": "A"
         }
       ],
@@ -968,6 +969,7 @@
         "y": 67
       },
       "id": 10,
+      "interval": "",
       "legend": {
         "alignAsTable": true,
         "avg": true,
@@ -997,7 +999,7 @@
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{name}}",
+          "legendFormat": "{{name}}-{{status}}",
           "refId": "A"
         }
       ],
@@ -1077,7 +1079,7 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
@@ -1168,7 +1170,7 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
@@ -1263,5 +1265,5 @@
   "timezone": "",
   "title": "API",
   "uid": "yj1M8Nwiz",
-  "version": 28
+  "version": 31
 }

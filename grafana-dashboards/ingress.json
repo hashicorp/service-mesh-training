@@ -328,7 +328,7 @@
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
@@ -423,7 +423,7 @@
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
@@ -476,6 +476,45 @@
       }
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                100
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "percent_diff"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "API Requests times have slowed dramatically",
+        "name": "API Requests (ms) alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "2PZBOr9ik"
+          }
+        ]
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -528,7 +567,15 @@
           "refId": "B"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 100
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -570,6 +617,45 @@
       }
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                100
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "5m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "percent_diff"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "Website request times have slowed dramatically",
+        "name": "Website Requests (ms) alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "2PZBOr9ik"
+          }
+        ]
+      },
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -613,7 +699,15 @@
           "refId": "A"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 100
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -655,6 +749,45 @@
       }
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "B",
+                "1m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "Ingress service is having difficulty contacting one or more upstream API services",
+        "name": "API Outlier Ejections alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "2PZBOr9ik"
+          }
+        ]
+      },
       "aliasColors": {},
       "bars": true,
       "dashLength": 10,
@@ -698,7 +831,15 @@
           "refId": "B"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 0
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -740,6 +881,45 @@
       }
     },
     {
+      "alert": {
+        "conditions": [
+          {
+            "evaluator": {
+              "params": [
+                0
+              ],
+              "type": "gt"
+            },
+            "operator": {
+              "type": "and"
+            },
+            "query": {
+              "params": [
+                "A",
+                "1m",
+                "now"
+              ]
+            },
+            "reducer": {
+              "params": [],
+              "type": "avg"
+            },
+            "type": "query"
+          }
+        ],
+        "executionErrorState": "alerting",
+        "for": "5m",
+        "frequency": "1m",
+        "handler": 1,
+        "message": "Ingress is having difficulty contacting one or more upstream website services",
+        "name": "Website Outlier Ejections Active alert",
+        "noDataState": "no_data",
+        "notifications": [
+          {
+            "uid": "2PZBOr9ik"
+          }
+        ]
+      },
       "aliasColors": {},
       "bars": true,
       "dashLength": 10,
@@ -782,7 +962,15 @@
           "refId": "A"
         }
       ],
-      "thresholds": [],
+      "thresholds": [
+        {
+          "colorMode": "critical",
+          "fill": true,
+          "line": true,
+          "op": "gt",
+          "value": 0
+        }
+      ],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
@@ -802,7 +990,7 @@
       },
       "yaxes": [
         {
-          "format": "ms",
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -865,5 +1053,5 @@
   "timezone": "",
   "title": "Ingress",
   "uid": "kcwk2x_iz",
-  "version": 37
+  "version": 45
 }

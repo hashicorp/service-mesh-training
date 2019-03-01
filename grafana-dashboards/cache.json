@@ -71,7 +71,7 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(cache_service_cache_get_count{status=\"200\"}[60s])+rate(cache_service_cache_put_count{status=\"200\"}[60s]))",
+          "expr": "sum(rate(cache_service_cache_get_count{status=\"200\"}[60s])+rate(cache_service_cache_put_count{status=\"200\"}[60s]))+sum(rate(cache_service_cache_exists_count{status=\"302\"}[60s]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -116,8 +116,9 @@
       },
       "targets": [
         {
-          "expr": "sum(rate(cache_service_cache_exists{status=\"~5\"}[60s])+rate(cache_service_cache_put{status=\"~5\"}[60s])+rate(cache_service_cache_get{status=\"~5\"}[60s]))",
+          "expr": "sum(rate(cache_service_cache_exists{status=\"~5\"}[60s])+rate(cache_service_cache_put{status=\"~5\"}[60s])+rate(cache_service_cache_get{status=\"~5\"}[60s]))+sum(rate(cache_service_cache_exists_count{status=~\"5.*\"}[60s]))",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
           "refId": "A"
@@ -488,7 +489,7 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
       "fill": 1,
@@ -511,7 +512,7 @@
         "total": true,
         "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
@@ -521,7 +522,7 @@
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
@@ -927,7 +928,7 @@
       "fill": 1,
       "gridPos": {
         "h": 8,
-        "w": 24,
+        "w": 12,
         "x": 0,
         "y": 71
       },
@@ -1003,6 +1004,90 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 71
+      },
+      "id": 24,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "cache_service_cache_invalidated",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Cache Invalidated Items",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
   "refresh": "10s",
@@ -1046,5 +1131,5 @@
   "timezone": "",
   "title": "Cache",
   "uid": "Uy71qN9ik",
-  "version": 29
+  "version": 33
 }

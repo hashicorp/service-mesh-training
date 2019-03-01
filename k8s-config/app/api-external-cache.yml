@@ -306,7 +306,7 @@ spec:
       containers:
 
       - name: emojify-api
-        image: "nicholasjackson/emojify-api:v0.7.0"
+        image: "nicholasjackson/emojify-api:v0.7.3"
         imagePullPolicy: Always
         command: ["/service/emojify-api"]
         args: [
@@ -315,18 +315,12 @@ spec:
           "-bind-address=0.0.0.0:9090",
           "-statsd-server=127.0.0.1:9125",
           "-cache-address=localhost:8005",
+          "-facebox-address=localhost:8003",
+          "-cache-error-rate=0.2", // Requests to the cache error 100% of the time
           "-path=/",
-          "-log_format=json",
         ]
         ports:
         - containerPort: 9090
-        env:
-        - name: FACEBOX
-          value: http://localhost:8003
-        - name: HOST_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.hostIP
         livenessProbe:
           httpGet:
             path: /health
