@@ -17,7 +17,7 @@ Helm charts come with default values for packages, but we need to override some 
 
 ## Step 1: Examine values.yaml
 
-Using a command line editor (e.g. vim, pico, emacs) or the visual Instruqt editor (Editor tab), take a look at the `values.yaml` file in this directory. You'll see several configuration values ([documentation](https://www.consul.io/docs/platform/k8s/helm.html#configuration-values-)).
+Using a command line editor (e.g. vim, pico, emacs) or the visual Instruqt editor (Editor tab), take a look at the `values.yaml` file in the files directory. You'll see several configuration values ([documentation](https://www.consul.io/docs/platform/k8s/helm.html#configuration-values-)).
 
 Guiding questions:
 
@@ -31,7 +31,7 @@ Guiding questions:
 Once you are familar with the configuration options, go ahead and install Consul using `helm install -f <config> <chart>`:
 
 ```
-helm install -f values.yaml k8s-config/consul/
+helm install -f files/values.yaml files/consul/
 ```
 
 You'll see output similar to:

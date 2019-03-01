@@ -10,7 +10,7 @@ spec:
   - name: http
     protocol: TCP
     port: 80
-    targetPort: 8003
+    targetPort: 8080
 
 ---                                                    
 apiVersion: apps/v1                                    
@@ -32,6 +32,8 @@ spec:
       containers:
       - name: emojify-facebox
         image: "machinebox/facebox"
+        ports:
+        - containerPort: 8080
         env:
         - name: MB_KEY
           valueFrom:
