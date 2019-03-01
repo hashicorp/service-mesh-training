@@ -25,8 +25,7 @@ spec:
   selector:
     app: emojify-website
   ports:
-  - name: http
-    protocol: TCP
+  - protocol: TCP
     port: 80
     targetPort: 5000
 
