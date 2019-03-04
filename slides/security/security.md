@@ -3,7 +3,7 @@
 
 # Service Mesh - Security
 
-## Nic Jackson & Christie Koehler
+## Nic Jackson & Christie Koehler & Erik Veld
 
 
 ---

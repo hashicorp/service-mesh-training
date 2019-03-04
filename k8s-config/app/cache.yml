@@ -179,7 +179,7 @@ spec:
       containers:
 
       - name: emojify-cache
-        image: "nicholasjackson/emojify-cache:v0.3.9"
+        image: "nicholasjackson/emojify-cache:v0.4.2"
         env:
         - name: STATSD_ADDRESS
           value: localhost:9125
@@ -200,7 +200,7 @@ spec:
               command: [
                "sh",
                "-c",
-               "/consul-init/consul services deregister -http-addr=http://${HOST_IP}:8500 -id=${POD_NAME}-emojify-facebox-proxy"
+               "/consul-init/consul services deregister -http-addr=http://${HOST_IP}:8500 -id=${POD_NAME}-emojify-cache-proxy"
                ]
         env:
         - name: HOST_IP
