@@ -55,23 +55,15 @@ spec:
             path: env.js
       containers:
       - name: emojify-website
-        image: "nicholasjackson/emojify-website:v0.5.9"
+        image: "nicholasjackson/emojify-website:v0.6.2"
         imagePullPolicy: Always
-        command: ["serve"]
-        args: ["-s", "build"]
         ports:
-        - containerPort: 5000
+        - containerPort: 80
         volumeMounts:
         - name: config
-          mountPath: /app/build/config/
+          mountPath: /usr/share/nginx/html/config
           readOnly: true
-        env:
-        - name: HOST_IP
-          valueFrom:
-            fieldRef:
-              fieldPath: status.hostIP
-        - name: POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
+        - name: envoy-config
+          mountPath: /consul-init
+          readOnly: false
 
