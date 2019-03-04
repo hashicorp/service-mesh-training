@@ -79,12 +79,17 @@ I could tell you a joke about UDP but you might not get it
 -->
 
 
+---
+{layout="14 Title at Top"}
 
 ## StatsD - Metric Types
+
+<!-- -->
+
 ---
 {layout="11-3 Code Editor"}
 
-## StatsD 
+# StatsD 
 
 ```
 # metric.name:value|type|sample_rate
