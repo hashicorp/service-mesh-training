@@ -266,11 +266,11 @@ TODO: Create and include a snazzy diagram explaining workshop infrastructure. Po
 
 ## Lab 0: Get started
 
-- A. Login to Instruqt and get familiar with environment
-- B. Install Consul with helm chart
-- C. Install emojify app.
-- D. Install Prometheus and Grafana
-- E. Configure Grafana
+- 1. Login to Instruqt and get familiar with environment
+- 2. Install Consul with helm chart
+- 3. Install emojify app.
+- 4. Install Prometheus and Grafana
+- 5. Configure Grafana
 
 <!--
 -->
