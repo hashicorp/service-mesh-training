@@ -3,7 +3,7 @@
 
 # Service Mesh - Observability
 
-## Nic Jackson & Christie Koehler & Erik Veld
+## Nic Jackson, Christie Koehler, Erik Veld
 
 
 ---

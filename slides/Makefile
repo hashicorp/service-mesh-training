@@ -2,7 +2,7 @@ build_what_is:
 	@echo Building what is deck
 	@md2gslides ./what_is/what_is.md -t "QCon 2019 - Service mesh overview" -n -c ${DEFAULT_TEMPLATE}
 
-update_observability:
+update_what_is:
 	@echo Updating what is  deck
 	@md2gslides ./what_is/what_is.md -a ${WHATIS_DECK_ID} -e -n
 
