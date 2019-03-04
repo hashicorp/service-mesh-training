@@ -114,7 +114,7 @@ Generally speaking, service meshes have three main components: Service discovery
 
 ## Service discovery
 
-![](https://raw.githubusercontent.com/christi3k/revealjs-poc/gh-pages/images/consul-service-mesh/service-registry-04.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/what_is/images/service_registry.png){pad=100}
 
 <!--
 Service discovery is the detection of services available within a given network (infrastructure?). In environments where application deployments are dynamic, services need a way to both discover other needed services and to make themselves discoverable. 
