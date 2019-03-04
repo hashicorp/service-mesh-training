@@ -21,3 +21,11 @@ build_observability:
 update_observability:
 	@echo Updating observability deck
 	@md2gslides ./observability/observability.md -a ${OBSERVABILITY_DECK_ID} -e -n
+
+build_reliability:
+	@echo Building reliability deck
+	@md2gslides ./reliability/reliability.md -t "QCon 2019 - Reliability" -n -c ${DEFAULT_TEMPLATE}
+
+update_reliability:
+	@echo Updating reliability deck
+	@md2gslides ./reliability/reliability.md -a ${RELIABILITY_DECK_ID} -e -n
