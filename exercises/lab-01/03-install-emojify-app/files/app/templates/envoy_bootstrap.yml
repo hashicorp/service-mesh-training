@@ -1,0 +1,35 @@
+admin:
+  access_log_path: "/dev/null"
+  address:
+    socket_address:
+      address: 127.0.0.1
+      port_value: 19000
+node:
+  cluster: "${POD_NAME}"
+  id: "${POD_NAME}"
+static_resources:
+  clusters:
+  - name: local_agent
+    connect_timeout: 1s
+    type: STATIC
+    http2_protocol_options: {}
+    hosts:
+    - socket_address:
+       address: "${HOST_IP}"
+       port_value: "8502"
+dynamic_resources:
+  lds_config:
+    ads: {}
+  cds_config:
+    ads: {}
+  ads_config:
+    api_type: GRPC
+    grpc_services:
+      envoy_grpc:
+        cluster_name: local_agent
+stats_sinks:
+  - name: statsd
+    address: ${HOST_IP}:8125
+    prefix: "envoy-prod"
+stats_config:
+  use_all_default_tags: true
