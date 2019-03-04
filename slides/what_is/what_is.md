@@ -34,6 +34,34 @@ TODO: Determine what we want to include here, if anything.
 
 
 ---
+{layout="14 Title at Top"}
+
+## Technologies this workshop
+
+* Envoy (data plane)
+* Consul Connect (control plane)
+* Prometheus (metrics database)
+* Grafana (metrics dashboard)
+* Kubernetes (scheduler)
+
+<!--
+Today we'll be using the following to teach the principles of service mesh.
+
+Regardless if you are using Consul Connect or Istio as your control plane most of the features such as the reliability patterns, security, and observability happen with Envoy. The control plane is responsible for configuring the data plane and providing service to service authorization and TLS certificates but the bulk of this course will concentrate on your understanding of Envoy. Understanding the underlying concepts of Envoy and its raw configuration will help greatly when you attempt to successfully deploy and operate your service mesh. Regarding the control plane, we have chosen Consul as we believe it is the easiest to install and understand. It is also the Control Plane that we understand the most.
+-->
+
+---
+{layout="14 Title at Top"}
+
+## Workshop goal
+
+Excellent general understanding of service mesh concepts you can apply regardless of specific technology choices.
+
+<!--
+There will be some specifics but we hope that you will be able to walk away from this course with an excellent general understanding of concepts which you will later be able to apply regardless of your technological choice.
+-->
+
+---
 {layout="01 Main Title - Consul"}
 
 # Part 1: What is a Service Mesh
@@ -238,11 +266,11 @@ TODO: Create and include a snazzy diagram explaining workshop infrastructure. Po
 
 ## Lab 0: Get started
 
-- A. Login to Instruqt and get familiar with environment
-- B. Install Consul with helm chart
-- C. Install emojify app.
-- D. Install Prometheus and Grafana
-- E. Configure Grafana
+- 1. Login to Instruqt and get familiar with environment
+- 2. Install Consul with helm chart
+- 3. Install emojify app.
+- 4. Install Prometheus and Grafana
+- 5. Configure Grafana
 
 <!--
 -->
