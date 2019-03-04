@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: prometheus-statsd
+  namespace: default
+  labels:
+    app: prometheus-statsd 
+spec:
+  selector:
+    matchLabels:
+      name: prometheus-statsd
+  template:
+    metadata:
+      labels:
+        name: prometheus-statsd
+      annotations:
+        "prometheus_io_scrape": "true"
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      containers:
+      - name: prometheus-statsd
+        image: prom/statsd-exporter:latest
+        args: [
+          "--log.level=debug"
+        ]
+        ports:
+          - name: statsd
+            containerPort: 9125
+            hostPort: 9125
+            protocol: UDP
+          - name: metrics
+            containerPort: 9102
+            hostPort: 9102
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
