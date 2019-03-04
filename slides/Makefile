@@ -5,3 +5,11 @@ build_what_is:
 build_security:
 	@echo Building security deck
 	@md2gslides ./security/security.md -t "QCon 2019 - Security" -n -c ${DEFAULT_TEMPLATE}
+
+build_observability:
+	@echo Building observability deck
+	@md2gslides ./observability/observability.md -t "QCon 2019 - Observability" -n -c ${DEFAULT_TEMPLATE}
+
+update_observability:
+	@echo Updating observability deck
+	@md2gslides ./observability/observability.md -a ${OBSERVABILITY_DECK_ID} -e -n
