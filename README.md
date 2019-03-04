@@ -7,7 +7,7 @@ In this repository you'll find code samples, slides, and environment setup confi
 For this workshop Google slides are generated from Markdown using the md2gslides node library.
 
 * Final Google Slides (link to come).
-* Markdown files available in [slides/](slides/) and information for how to generate Google slides from these files in that directory's [README.md](slides.README.md).
+* Markdown files available in [slides/](https://github.com/hashicorp/service-mesh-training/tree/master/slides) and information for how to generate Google slides from these files in that directory's [README.md](https://github.com/hashicorp/service-mesh-training/tree/master/slides/README.md).
 
 ## Exercises
 
