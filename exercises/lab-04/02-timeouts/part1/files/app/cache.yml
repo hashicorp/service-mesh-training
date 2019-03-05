@@ -183,6 +183,8 @@ spec:
         env:
         - name: STATSD_ADDRESS
           value: localhost:9125
+        - name: CACHE_MAX_LIFE
+          value: 30m
       
       - name: envoy-sidecar
         image: "envoyproxy/envoy-alpine:v1.8.0"
