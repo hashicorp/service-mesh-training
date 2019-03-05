@@ -378,12 +378,6 @@ spec:
         ports:
           - name: metrics
             containerPort: 9102
-        resources:
-          limits:
-            memory: 100Mi
-          requests:
-            cpu: 100m
-            memory: 100Mi
       
       initContainers:
       - name: envoy-init

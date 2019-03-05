@@ -213,24 +213,12 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        resources:
-          limits:
-            memory: 100Mi
-          requests:
-            cpu: 100m
-            memory: 100Mi
         
       - name: prometheus-statsd
         image: prom/statsd-exporter:latest
         ports:
           - name: metrics
             containerPort: 9102
-        resources:
-          limits:
-            memory: 100Mi
-          requests:
-            cpu: 100m
-            memory: 100Mi
       
       initContainers:
       - name: envoy-init
