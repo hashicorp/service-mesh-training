@@ -180,7 +180,7 @@ spec:
         - containerPort: 5000
         volumeMounts:
         - name: config
-          mountPath: /app/build/config/
+          mountPath: /usr/share/nginx/html/config
           readOnly: true
         - name: envoy-config
           mountPath: /consul-init
