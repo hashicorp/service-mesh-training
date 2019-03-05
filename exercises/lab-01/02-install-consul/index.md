@@ -1,4 +1,4 @@
-# Lab 01, Exercise 02: Install Consul via Helm Chart
+# [Lab 01](../index.md), Exercise 02: Install Consul via Helm Chart
 
 **Objective:** Install Consul into your Kubernetes cluster using Helm.
 
@@ -17,7 +17,13 @@ Helm charts come with default values for packages, but we need to override some 
 
 ## Step 1: Examine values.yaml
 
-Using a command line editor (e.g. vim, pico, emacs) or the visual Instruqt editor (Editor tab), take a look at the `values.yaml` file in the files directory. You'll see several configuration values ([documentation](https://www.consul.io/docs/platform/k8s/helm.html#configuration-values-)).
+First, make sure you're in this exercise's directory:
+
+```
+cd ~/service-mesh-training/exercises/lab-01/02-install-consul
+```
+
+Using a command line editor (e.g. vim, pico, emacs) or the visual Instruqt editor (Editor tab), take a look at the `files/values.yaml` file in the files directory. You'll see several configuration values ([documentation](https://www.consul.io/docs/platform/k8s/helm.html#configuration-values-)).
 
 Guiding questions:
 
@@ -28,7 +34,7 @@ Guiding questions:
 
 ## Step 2: Install Consul
 
-Once you are familar with the configuration options, go ahead and install Consul using `helm install -f <config> <chart>`:
+Once you are familiar with the configuration options, go ahead and install Consul using `helm install -f <config> <chart>`:
 
 ```
 helm install -f files/values.yaml files/consul/
@@ -86,6 +92,6 @@ solitary-marmot-consul-server   NodePort    10.109.158.40    <none>        8500:
 solitary-marmot-consul-ui       ClusterIP   10.111.114.137   <none>        80/TCP                                                               23m
 ```
 
-If you're using the Instruqt environment, visit the **Consul** tab and you should see the Consul Web UI:
+Visit the **Consul** tab and you should see the Consul Web UI:
 
-![Consul UI](/service-mesh-training/exercises/images/lab01-consul-ui.png "Consul Web UI")
+![Consul UI](../../images/lab01-consul-ui.png "Consul Web UI")

@@ -2,6 +2,10 @@
 
 **Objective**: Launch Service Mesh environment on Instruqt and explore its features.
 
+* [Step 1: Create an account on Instruqt](#step-1-create-an-account-on-instruqt)
+* [Step 2: Start workshop track](#step-2-start-workshop-track)
+* [Step 3: Explore Instruqt environment](#step-3-explore-instruqt-environment)
+
 For this workshop, we'll be using the [Instruqt](), an online interactive learning platform. All you need is a web browser. Chrome or Firefox recommended. You may need to disable ad blockers or allow-list Instruqt.
 
 ## Step 1: Create an account on Instruqt
