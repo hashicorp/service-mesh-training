@@ -195,7 +195,7 @@ syncCatalog:
 connectInject:
   enabled: true
   image: null # image for consul-k8s that contains the injector
-  default: true # true will inject by default, otherwise requires annotation
+  default: false # true will inject by default, otherwise requires annotation
 
   # imageConsul and imageEnvoy can be set to Docker images for Consul and
   # Envoy, respectively. If the Consul image is not specified, the global
