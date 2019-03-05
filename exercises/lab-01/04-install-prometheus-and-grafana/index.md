@@ -2,10 +2,19 @@
 
 **Objective:** Install [Prometheus](https://prometheus.io) and [Grafana](https://grafana.com) into Kubernetes cluster.
 
-Prometheus and Grafana:
+## Step 1: Install Prometheus and Grafana
+
+First, navigate to this exercise's directory:
 
 ```
-$ kubectl apply -f service-mesh-training/k8s-config/monitoring/
+cd ~/service-mesh-training/exercises/lab-01/04-install-prometheus-and-grafana/
+```
+
+Install Prometheus and Grafana with `kubectl apply`:
+
+```
+kubectl apply -f files/prometheus
+
 configmap/prometheus-server-conf created
 clusterrole.rbac.authorization.k8s.io/prometheus created
 clusterrolebinding.rbac.authorization.k8s.io/prometheus created
@@ -15,7 +24,9 @@ statefulset.apps/prometheus-statefulset created
 daemonset.apps/prometheus-statsd created
 ```
 
-Verify
+## Step 2: Verify installation
+
+With `kubectl` to ensure the pods are running:
 
 ```
 $ kubectl get pods
@@ -32,11 +43,36 @@ prometheus-statefulset-0                    2/2     Running   0          2m29s
 prometheus-statsd-h4hg2                     1/1     Running   0          2m29s
 ```
 
-Load testing data:
+Click on the **Grafana** tab in Instruqt and you should see the Grafana user interface:
+
+![Grafana dashboard](../../images/lab01-grafana.png "Grafana dashboard")
+
+The default credentials are username **admin** and password **admin**.
+
+We won't be using it for this workshop, but you can also see the **Prometheus** dashboard on that tab:
+
+![Prometheus dashboard](../../images/lab01-prometheus.png "Prometheus")
+
+## Step 3: Deploy load testing service
+
+We'll use Gatling to load our Emojify service. Deploy with `kubectl apply`:
 
 ```
-$ kubectl apply -f service-mesh-training/k8s-config/load-test.yml
+kubectl apply -f files/load-test.yml
+
 configmap/emojify-loadtest-configmap created
 deployment.apps/emojify-loadtest created
 ```
 
+You can verify the load testing has been deployed with:
+
+```
+NAME                                                          READY   UP-TO-DATE   AVAILABLE   AGE
+emojify-api-external-cache                                    1/1     1            1           54m
+emojify-cache                                                 1/1     1            1           54m
+emojify-facebox                                               1/1     1            1           54m
+emojify-ingress                                               1/1     1            1           54m
+emojify-loadtest                                              1/1     1            1           47m
+emojify-website                                               1/1     1            1           54m
+intended-buffalo-consul-connect-injector-webhook-deployment   1/1     1            1           55m
+```
