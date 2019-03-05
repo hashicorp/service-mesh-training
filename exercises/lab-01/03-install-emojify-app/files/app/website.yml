@@ -66,4 +66,16 @@ spec:
         - name: config
           mountPath: /usr/share/nginx/html/config
           readOnly: true
+      
+      - name: prometheus-statsd
+        image: prom/statsd-exporter:latest
+        ports:
+          - name: metrics
+            containerPort: 9102
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
 

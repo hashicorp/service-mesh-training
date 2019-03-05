@@ -45,3 +45,15 @@ spec:
           value: "0.0.0.0"
         - name: MB_PORT
           value: "8080"
+
+      - name: prometheus-statsd
+        image: prom/statsd-exporter:latest
+        ports:
+          - name: metrics
+            containerPort: 9102
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
