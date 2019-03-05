@@ -17,13 +17,11 @@ cd ~/service-mesh-training/exercises/lab-01/03-install-emojify-app/
 
 Now take a look at the files in `files/apps`:
 
-* **api-external-cache.yml**
-* **cache.yml**
-* **facebox.yml**
-* **ingress.yml**
-* **secret.yml**
-* **templates**
-* **website.yml**
+* **api-external-cache.yml**: Emojify API service.
+* **cache.yml**: Emojify cache service.
+* **facebox.yml**: Face detection service.
+* **ingress.yml**: Application gateway ingress.
+* **website.yml**: React website serving user interface.
 
 TODO: Add brief explanation for each item above.
 TODO: Add architecture diagram.
