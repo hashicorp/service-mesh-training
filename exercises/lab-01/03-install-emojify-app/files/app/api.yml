@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: emojify-api-service
+  name: emojify-api
 spec:
   selector:
     app: emojify-api
@@ -28,6 +28,8 @@ spec:
     metadata:
       labels:
         app: emojify-api
+      annotations:
+        "prometheus_io_scrape": "true"
     spec:
       containers:
       - name: emojify-api
@@ -38,8 +40,9 @@ spec:
           "-allow-origin=*",
           "-authn-disable=true",
           "-bind-address=0.0.0.0:9090",
-          "-cache-address=emojify-cache-service:80",
-          "-facebox-address=emojify-facebox-service:80",
+          "-cache-address=emojify-cache:80",
+          "-facebox-address=emojify-facebox:80",
+          "-cache-error-rate=0.2", // Requests to the cache error 100% of the time
           "-path=/",
         ]
         ports:

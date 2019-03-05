@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: emojify-ingress-service
+  name: emojify-ingress
 spec:
   type: NodePort
   selector:
@@ -28,11 +28,11 @@ data:
     http {
       upstream emojify-website {
         keepalive 100;
-        server emojify-website-service:80;
+        server emojify-website:80;
       }
       upstream emojify-api {
         keepalive 100;
-        server emojify-api-service:80;
+        server emojify-api:80;
       }
 
       server {
@@ -67,6 +67,8 @@ spec:
       name: emojify-ingress
       labels:
         app: emojify-ingress
+      annotations:
+        "prometheus_io_scrape": "true"
     spec:
       volumes:
       - name: config
