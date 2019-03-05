@@ -260,8 +260,8 @@ data:
                                     "prefix": "/"
                                   },
                                   "route": {
-                                   "cluster": "service:emojify-api"
-                                    "timeout": "2s",
+                                   "cluster": "service:emojify-api",
+                                   "timeout": "2s"
                                   }
                                 }
                               ]
