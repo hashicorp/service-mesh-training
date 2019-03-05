@@ -28,11 +28,11 @@ data:
     http {
       upstream emojify-website {
         keepalive 100;
-        server emojify-website-service:80;
+        server localhost:8000;
       }
       upstream emojify-api {
         keepalive 100;
-        server emojify-api-service:80;
+        server localhost:8001;
       }
 
       server {
@@ -67,6 +67,9 @@ spec:
       name: emojify-ingress
       labels:
         app: emojify-ingress
+      annotations:
+        "consul.hashicorp.com/connect-inject": "true"
+        "consul.hashicorp.com/connect-service-upstreams": "emojify-website:8000,emojify-api:8001"
     spec:
       volumes:
       - name: config
