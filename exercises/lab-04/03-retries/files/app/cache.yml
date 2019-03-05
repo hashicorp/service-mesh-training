@@ -183,6 +183,8 @@ spec:
         env:
         - name: STATSD_ADDRESS
           value: localhost:9125
+        - name: CACHE_MAX_LIFE
+          value: 30m
       
       - name: envoy-sidecar
         image: "envoyproxy/envoy-alpine:v1.8.0"
@@ -211,24 +213,12 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        resources:
-          limits:
-            memory: 100Mi
-          requests:
-            cpu: 100m
-            memory: 100Mi
         
       - name: prometheus-statsd
         image: prom/statsd-exporter:latest
         ports:
           - name: metrics
             containerPort: 9102
-        resources:
-          limits:
-            memory: 100Mi
-          requests:
-            cpu: 100m
-            memory: 100Mi
       
       initContainers:
       - name: envoy-init
