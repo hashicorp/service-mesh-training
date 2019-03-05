@@ -54,7 +54,7 @@ We use instrumentation both internal an external to achieve this, for example, w
 ---
 {layout="14 Title at Top"}
 
-## Internal instumentation
+## Internal instrumentation
 
 - StatsD
 - Prometheus metrics endpoints
