@@ -43,6 +43,7 @@ spec:
           "-facebox-address=localhost:8003",
           "-path=/",
           "--cache-error-rate=1",
+          "--cache-error-type=delay",
           "--cache-error-delay=5s",
         ]
         ports:
