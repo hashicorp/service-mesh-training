@@ -40,6 +40,7 @@ spec:
           "-allow-origin=*",
           "-authn-disable=true",
           "-bind-address=0.0.0.0:9090",
+          "-statsd-server=127.0.0.1:9125",
           "-cache-address=emojify-cache:80",
           "-facebox-address=emojify-facebox:80",
           "-cache-error-rate=0.2", // Requests to the cache error 100% of the time
