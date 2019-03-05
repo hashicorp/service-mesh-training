@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: emojify-cache-service
+  name: emojify-cache
 spec:
   selector:
     app: emojify-cache
@@ -27,6 +27,8 @@ spec:
     metadata:
       labels:
         app: emojify-cache
+      annotations:
+        "prometheus_io_scrape": "true"
     spec:
       containers:
       - name: emojify-cache
@@ -36,3 +38,15 @@ spec:
         env:
         - name: BIND_ADDRESS
           value: "0.0.0.0"
+
+      - name: prometheus-statsd
+        image: prom/statsd-exporter:latest
+        ports:
+          - name: metrics
+            containerPort: 9102
+        resources:
+          limits:
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
