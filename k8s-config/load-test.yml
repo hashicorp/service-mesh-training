@@ -37,7 +37,7 @@ data:
         // Post an image
     		.exec(http("request_post_image")
     			.post("/api/")
-          .body(StringBody("http://emojify-ingress-service:80/pictures/1.jpg"))
+          .body(StringBody("http://emojify-ingress-service/pictures/1.jpg"))
     			.headers(headers_0)
           .check(bodyString.saveAs("image_id"))
           .check(status is 200)

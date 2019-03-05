@@ -40,7 +40,6 @@ spec:
           "-bind-address=0.0.0.0:9090",
           "-cache-address=emojify-cache-service:80",
           "-facebox-address=emojify-facebox-service:80",
-          "-cache-error-rate=0.2", // Requests to the cache error 100% of the time
           "-path=/",
         ]
         ports:
