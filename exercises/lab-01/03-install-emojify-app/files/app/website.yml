@@ -47,7 +47,7 @@ spec:
       labels:
         app: emojify-website
       annotations:
-      "prometheus_io_scrape": "true"
+        "prometheus_io_scrape": "true"
     spec:
       volumes:
       - name: config
