@@ -582,7 +582,7 @@
       "dashes": false,
       "fill": 1,
       "gridPos": {
-        "h": 10,
+        "h": 8,
         "w": 24,
         "x": 0,
         "y": 40
@@ -674,7 +674,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 50
+        "y": 48
       },
       "id": 4,
       "legend": {
@@ -760,7 +760,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 57
+        "y": 55
       },
       "id": 21,
       "interval": "",
@@ -776,7 +776,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "null as zero",
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
@@ -845,12 +845,13 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 64
+        "y": 62
       },
       "id": 22,
       "legend": {
         "avg": false,
         "current": false,
+        "hideZero": true,
         "max": false,
         "min": false,
         "show": true,
@@ -860,7 +861,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "null as zero",
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
@@ -930,7 +931,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 71
+        "y": 69
       },
       "id": 8,
       "interval": "",
@@ -1015,9 +1016,10 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 71
+        "y": 69
       },
       "id": 24,
+      "interval": "",
       "legend": {
         "avg": false,
         "current": false,
@@ -1041,10 +1043,10 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "cache_service_cache_invalidated",
+          "expr": "increase(cache_service_cache_invalidated[30s])",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "",
+          "legendFormat": "{{name}}",
           "refId": "A"
         }
       ],
@@ -1131,5 +1133,5 @@
   "timezone": "",
   "title": "Cache",
   "uid": "Uy71qN9ik",
-  "version": 33
+  "version": 38
 }

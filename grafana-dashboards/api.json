@@ -1,5 +1,14 @@
 {
-  "__inputs": [],
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
   "__requires": [
     {
       "type": "grafana",
@@ -11,6 +20,12 @@
       "type": "panel",
       "id": "graph",
       "name": "Graph",
+      "version": "5.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
       "version": "5.0.0"
     },
     {
@@ -43,6 +58,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
+  "iteration": 1551799015191,
   "links": [],
   "panels": [
     {
@@ -219,90 +235,6 @@
         "x": 0,
         "y": 9
       },
-      "id": 23,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(container_memory_working_set_bytes{container_name!=\"POD\",name=~\"^k8s_.*\",pod_name=~\"emojify-api-.*\"}) by (container_name)",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "POD Memory",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "bytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "fill": 1,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 9
-      },
       "id": 21,
       "legend": {
         "avg": false,
@@ -377,6 +309,90 @@
     },
     {
       "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "id": 23,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(container_memory_working_set_bytes{container_name!=\"POD\",name=~\"^k8s_.*\",pod_name=~\"emojify-api-.*\"}) by (container_name)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "POD Memory",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
       "bars": true,
       "dashLength": 10,
       "dashes": false,
@@ -414,19 +430,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(envoy_ext_authz_connect_authz_ok{label_app=\"emojify-api\"}[1m])",
+          "expr": "sum(increase(envoy_ext_authz_connect_authz_ok{label_app=\"emojify-api\", name=~\"^$pod_name$\"}[1m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{name}}-{{ip}}",
+          "legendFormat": "ok",
           "refId": "A"
         },
         {
-          "expr": "increase(envoy_ext_authz_connect_authz_error{label_app=\"emojify-api\"}[1m])",
+          "expr": "sum(increase(envoy_ext_authz_connect_authz_error{label_app=\"emojify-api\", name=~\"^$pod_name$\"}[1m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{name}}-{{ip}}",
+          "legendFormat": "error",
           "refId": "B"
         }
       ],
@@ -533,27 +549,27 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(envoy_http_downstream_cx_total{envoy_http_conn_manager_prefix=\"ingress_api\"}[1m])",
+          "expr": "sum(increase(envoy_http_downstream_cx_total{envoy_http_conn_manager_prefix=\"ingress_api\", name=~\"^$pod_name$\"}[1m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "total-{{name}}",
+          "legendFormat": "total",
           "refId": "A"
         },
         {
-          "expr": "increase(envoy_http_downstream_cx_destroy_remote{envoy_http_conn_manager_prefix=\"ingress_api\"}[1m])",
+          "expr": "sum(increase(envoy_http_downstream_cx_destroy_remote{envoy_http_conn_manager_prefix=\"ingress_api\", name=~\"^$pod_name$\"}[1m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "destroy-remote-{{name}}",
+          "legendFormat": "destroy-remote",
           "refId": "B"
         },
         {
-          "expr": "increase(envoy_http_downstream_cx_destroy_local{envoy_http_conn_manager_prefix=\"ingress_api\"}[1m])",
+          "expr": "sum(increase(envoy_http_downstream_cx_destroy_local{envoy_http_conn_manager_prefix=\"ingress_api\", name=~\"^$pod_name$\"}[1m]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "destroy-local-{{name}}",
+          "legendFormat": "destroy-local",
           "refId": "C"
         }
       ],
@@ -637,11 +653,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(envoy_http_downstream_rq_xx{envoy_http_conn_manager_prefix=\"ingress_api\"}[30s])) by (controller_name,envoy_response_code_class)",
+          "expr": "sum(increase(envoy_http_downstream_rq_xx{envoy_http_conn_manager_prefix=\"ingress_api\", name=~\"^$pod_name$\"}[30s])) by (envoy_response_code_class)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{controller_name}}-{{envoy_response_code_class}}xx",
+          "legendFormat": "{{envoy_response_code_class}}xx",
           "refId": "A"
         }
       ],
@@ -714,7 +730,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "null as zero",
       "paceLength": 10,
       "percentage": false,
       "pointradius": 5,
@@ -726,11 +742,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(api_service_cache_called_sum[10s])/rate(api_service_cache_called_count[10s])",
+          "expr": "sum(rate(api_service_cache_called_sum{name=~\"^$pod_name$\"}[10s])/rate(api_service_cache_called_count{name=~\"^$pod_name$\"}[10s])) by (status)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{name}}-{{status}}",
+          "legendFormat": "{{status}}",
           "refId": "A"
         }
       ],
@@ -804,7 +820,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "null as zero",
       "paceLength": 10,
       "percentage": false,
       "pointradius": 5,
@@ -816,11 +832,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(api_service_emojify_called_sum[30s])/rate(api_service_emojify_called_count[30s])",
+          "expr": "sum(rate(api_service_emojify_called_sum{name=~\"^$pod_name$\"}[30s])/rate(api_service_emojify_called_count{name=~\"^$pod_name$\"}[30s])) by (status)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{name}}-{{status}}",
+          "legendFormat": "{{status}}",
           "refId": "A"
         }
       ],
@@ -906,11 +922,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(api_service_health_called_sum[1m])/rate(api_service_health_called_count[1m])",
+          "expr": "sum(rate(api_service_health_called_sum{name=~\"^$pod_name$\"}[1m])/rate(api_service_health_called_count{name=~\"^$pod_name$\"}[1m])) by (status)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{name}}",
+          "legendFormat": "{{status}}",
           "refId": "A"
         }
       ],
@@ -961,6 +977,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "description": "Time taken for upstream facebox API to detect faces in an image",
       "fill": 1,
       "gridPos": {
         "h": 8,
@@ -983,7 +1000,7 @@
       "lines": true,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null",
+      "nullPointMode": "null as zero",
       "paceLength": 10,
       "percentage": false,
       "pointradius": 5,
@@ -995,11 +1012,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(api_service_emojify_find_faces_sum[30s])/rate(api_service_emojify_find_faces_count[30s])",
+          "expr": "sum(rate(api_service_emojify_find_faces_sum{name=~\"^$pod_name$\"}[30s])/rate(api_service_emojify_find_faces_count{name=~\"^$pod_name$\"}[30s])) by (status)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{name}}-{{status}}",
+          "legendFormat": "{{status}}",
           "refId": "A"
         }
       ],
@@ -1083,11 +1100,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(api_service_emojify_cache_check_count[30s])",
+          "expr": "sum(increase(api_service_emojify_cache_check_count{name=~\"^$pod_name$\"}[30s])) by (status)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{name}}-{{status}}",
+          "legendFormat": "{{status}}",
           "refId": "A"
         }
       ],
@@ -1231,7 +1248,30 @@
     "emojify"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
+        "definition": "query_result(sum(api_service_health_called_count) by (name))",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "pod_name",
+        "options": [],
+        "query": "query_result(sum(api_service_health_called_count) by (name))",
+        "refresh": 1,
+        "regex": "/\"([^\"]+)\"/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "$name",
+        "tags": [],
+        "tagsQuery": "query_result(envoy_ext_authz_connect_authz_ok{label_app=\"emojify-api\"})",
+        "type": "query",
+        "useTags": false
+      }
+    ]
   },
   "time": {
     "from": "now-30m",
@@ -1265,5 +1305,5 @@
   "timezone": "",
   "title": "API",
   "uid": "yj1M8Nwiz",
-  "version": 31
+  "version": 37
 }
