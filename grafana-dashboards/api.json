@@ -58,7 +58,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1551799015191,
+  "iteration": 1551800233220,
   "links": [],
   "panels": [
     {
@@ -653,11 +653,11 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(envoy_http_downstream_rq_xx{envoy_http_conn_manager_prefix=\"ingress_api\", name=~\"^$pod_name$\"}[30s])) by (envoy_response_code_class)",
+          "expr": "sum(increase(envoy_http_downstream_rq_xx{envoy_http_conn_manager_prefix=\"ingress_api\", name=~\"^$pod_name$\"}[30s])) by (envoy_response_code_class,name)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{envoy_response_code_class}}xx",
+          "legendFormat": "{{envoy_response_code_class}}xx-{{name}}",
           "refId": "A"
         }
       ],
@@ -1305,5 +1305,5 @@
   "timezone": "",
   "title": "API",
   "uid": "yj1M8Nwiz",
-  "version": 37
+  "version": 2
 }
