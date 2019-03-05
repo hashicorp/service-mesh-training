@@ -67,7 +67,7 @@ data:
         destination_service_name = "emojify-website"
         destination_service_id = "${POD_NAME}-emojify-website"
         local_service_address = "127.0.0.1"
-        local_service_port = 5000
+        local_service_port = 80
         
         config {
           envoy_public_listener_json = <<EOL
