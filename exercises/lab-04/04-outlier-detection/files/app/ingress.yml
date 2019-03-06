@@ -227,7 +227,11 @@ data:
                     "ads": {}
                   }
                 },
-                "connect_timeout": "5s"
+                "connect_timeout": "5s",
+                "outlier_detection": {
+                  "consecutive_5xx": 50,
+                  "base_ejection_time": "60s"
+                }
               }
             EOL
 
@@ -260,7 +264,13 @@ data:
                                     "prefix": "/"
                                   },
                                   "route": {
-                                    "cluster": "service:emojify-api"
+                                    "cluster": "service:emojify-api",
+                                    "timeout": "6s",
+                                    "retry_policy": {
+                                      "retry_on": "5xx",
+                                      "num_retries": 2,
+                                      "per_try_timeout": "2s"
+                                    }
                                   }
                                 }
                               ]
@@ -314,6 +324,7 @@ spec:
       name: emojify-ingress
       labels:
         app: emojify-ingress
+        state: outlier-part1
       annotations:
         "prometheus_io_scrape": "true"
     spec:
@@ -377,12 +388,6 @@ spec:
         ports:
           - name: metrics
             containerPort: 9102
-        resources:
-          limits:
-            memory: 100Mi
-          requests:
-            cpu: 100m
-            memory: 100Mi
       
       initContainers:
       - name: envoy-init
