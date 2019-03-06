@@ -1388,7 +1388,7 @@
         {
           "allValue": null,
           "current": {},
-          "datasource": "${DS_PROMETHEUS}",
+          "datasource": "Prometheus",
           "definition": "query_result(sum(api_service_health_called_count) by (name))",
           "hide": 0,
           "includeAll": true,
