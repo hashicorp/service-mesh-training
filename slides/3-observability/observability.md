@@ -45,7 +45,7 @@ Before we dive into this let’s re-visit a concept which should be familiar, mo
 
 ## Internal and external instrumentation
 
-* IMAGE HERE
+![](https://github.com/hashicorp/service-mesh-training/blob/master/slides/3-observability/images/internal_external.png)
 
 <!--
 We use instrumentation both internal an external to achieve this, for example, we may have an external health check which probes an application’s state or determines the current resource consumption.  We may have internal statistics which report the performance of a particular block of code or the time taken to perform a database transaction.
@@ -211,11 +211,8 @@ The term originates from the world of engineering and control theory, in summary
 
 # Observability 
 
-- monitoring
-- logs
-- network traces
-- business metrics such as sales figures
- 
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/3-observability/images/observability.png)
+
 <!--
 Some of these outputs will be from traditional monitoring however Observability encompasses:
 -->
@@ -259,26 +256,7 @@ Before we start looking at these statistics, lets take a quick overview of Envoy
 
 ## Data plane (Envoy) - architecture
 
-NOTE: REPLACE WITH AN IMAGE
-
-- Upstream
-  - Cluster
-    - Service Discovery
-    - Load balancing
-    - Outlier ejection
-    - Circuit breaking
-  - Listeners
-    - Listener filters
-      - HTTP Router
-      - Retry
-      - Timeouts
-      - gRPC bridge filter
-- Local app
-  - Cluster
-  - Listener
-    - Listener filter
-      - Authz
-- Local agent - Control Plane (Aggregated Discovery Service)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/3-observability/images/architecture.png)
 
 <!--
 Envoy is predominately composed of:

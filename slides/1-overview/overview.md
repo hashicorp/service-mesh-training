@@ -261,6 +261,15 @@ TODO: Add clear definitions for each of the three terms.
 TODO: Create and include a snazzy diagram explaining workshop infrastructure. Possibly use multiple slides to show infrastructure at each stage of lab to demonstrate how we'll use it to demonstrate 3 main benefits of service mesh.
 -->
 
+
+---
+{layout="99-2 Title Clean"}
+
+# Exercise 1
+
+<!-- -->
+
+
 ---
 {layout="14 Title at Top"}
 

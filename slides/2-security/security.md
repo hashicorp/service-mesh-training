@@ -234,6 +234,14 @@ Defining network segmentation through Intentions alleviates the complexity of tr
 
 
 ---
+{layout="99-2 Title Clean"}
+
+# Exercise 1
+
+<!-- -->
+
+
+---
 {layout="09 Section Title - Consul"}
 
 # Problem 2: Traffic between services is not encrypted
@@ -402,6 +410,14 @@ The truth is we don't have to
 <!--
 Yes we have open network access to our service running in segment b but since we are securing things with connect this is OK, the ports for service B are accessible and open but they are secured automatically with service intentions and the connect proxy.  Let's take a deeper dive at how connect works to understand how things are secure.
 -->
+
+
+---
+{layout="99-2 Title Clean"}
+
+# Exercise 2
+
+<!-- -->
 
 
 ---
