@@ -261,12 +261,7 @@ data:
                                   },
                                   "route": {
                                     "cluster": "service:emojify-api",
-                                    "timeout": "6s",
-                                    "retry_policy": {
-                                      "retry_on": "5xx",
-                                      "num_retries": 2,
-                                      "per_try_timeout": "2s"
-                                    }
+                                    "timeout": "6s"
                                   }
                                 }
                               ]
