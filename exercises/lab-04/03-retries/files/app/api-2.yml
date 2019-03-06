@@ -14,7 +14,6 @@ spec:
     metadata:
       labels:
         app: emojify-api
-        state: timeout
       annotations:
         "prometheus_io_scrape": "true"
     spec:
@@ -44,8 +43,7 @@ spec:
           "-facebox-address=localhost:8003",
           "-path=/",
           "--cache-error-rate=1",
-          "--cache-error-type=delay",
-          "--cache-error-delay=5s",
+          "--cache-error-type=http_error",
         ]
         ports:
         - containerPort: 9090
