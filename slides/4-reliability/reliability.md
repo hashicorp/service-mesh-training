@@ -11,7 +11,7 @@
 
 ## Monoliths communicate in process
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/monolith.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/monolith.png){pad=100}
 
 <!--
 We explained in the first part of this course that with Microservices you break down what would be internal procedure call
@@ -23,7 +23,7 @@ We explained in the first part of this course that with Microservices you break 
 
 ## Microservices communicate across the network
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/microservices.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/microservices.png){pad=100}
 
 <!--
 and break them out into their own applications which are now connected via a network connections. 
@@ -82,7 +82,7 @@ The most common patterns we need to implement in our applications are:
 
 ## Traditionally reliability patterns were implemented using a fat client
 
-INSERT IMAGE
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/fat_client.png){pad=100}
 
 <!--
 Traditionally these would be implemented at a code level using a Fat Client approach.  We mentioned Netflix and the Hystrix library, this was the start of the popularization of this approach, Hystrix is written in Java and therefore if you were working in this language you had an amazing library which you could rely on.  The problem is that Microservices enabled teams to choose a multitude of languages.  Front end teams would build services in NodeJS, Ruby could be used, Go became popular, the sadists would use closure, and everyone now seems to be moving to Rust.
@@ -388,7 +388,7 @@ The random load balancer selects a endpoint at random.  When no health checking 
 # Load balancing
 ## configuration
 
-```json
+```json {style="font-size: 28pt"}
 {
   "@type": "type.googleapis.com/envoy.api.v2.Listener",
   "name": "public_listener:${POD_IP}:20000",
@@ -413,7 +413,7 @@ We can configure the cluster for the upstream listener to specify a load balanci
 # Load balancing
 ## configuration
 
-```json
+```json {style="font-size: 28pt"}
 "route": {
     "cluster": "local_app"
     "weighted_clusters": [
@@ -453,9 +453,7 @@ The endpoint which is returned from the EDS must have the following metadata set
 ```
 
 "filter_metadata": {"envoy.lb": {"canary": <bool> }}
-
 ```
-
 [https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/route/route.proto#route-weightedcluster](https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/route/route.proto#route-weightedcluster)
 
 <!--
@@ -466,18 +464,19 @@ The endpoint which is returned from the EDS must have the following metadata set
 
 ## Load balancing - statistics
 
-Name	| Type	| Description
---------|-------|----------------
-lb_recalculate_zone_structures	| Counter	| The number of times locality aware routing structures are regenerated for fast decisions on upstream locality selection
-lb_healthy_panic	| Counter	| Total requests load balanced with the load balancer in panic mode
-lb_zone_cluster_too_small	| Counter	| No zone aware routing because of small upstream cluster size
-lb_zone_routing_all_directly	| Counter	| Sending all requests directly to the same zone
-lb_zone_routing_sampled	| Counter	| Sending some requests to the same zone
-lb_zone_routing_cross_zone	| Counter	| Zone aware routing mode but have to send cross zone
-lb_local_cluster_not_ok	| Counter	| Local host set is not set or it is panic mode for local cluster
-lb_zone_number_differs	| Counter	| Number of zones in local and upstream cluster different
-lb_zone_no_capacity_left	| Counter	| Total number of times ended with random zone selection due to rounding error
-original_dst_host_invalid	| Counter	| Total number of invalid hosts passed to original destination load balancer
+```{style="font-size:24"}
+| Name	                        | Type   	| Description                                                        |
+| ------------------------------|---------|--------------------------------------------------------------------|
+| lb_healthy_panic          	  | Counter	| Total requests load balanced with the load balancer in panic mode  |
+| lb_zone_cluster_too_small    	| Counter	| No zone aware routing because of small upstream cluster size       |
+| lb_zone_routing_all_directly	| Counter	| Sending all requests directly to the same zone                     |
+| lb_zone_routing_sampled     	| Counter	| Sending some requests to the same zone                             |
+| lb_zone_routing_cross_zone	  | Counter	| Zone aware routing mode but have to send cross zone                |
+| lb_local_cluster_not_ok	      | Counter	| Local host set is not set or it is panic mode for local cluster    |
+| lb_zone_number_differs	      | Counter	| Number of zones in local and upstream cluster different            |
+| lb_zone_no_capacity_left	    | Counter	| Total times ended with random zone selection due to rounding error |
+| original_dst_host_invalid	    | Counter	| Total invalid hosts passed to original destination load balancer   |
+```
 
 <!-- -->
 
@@ -505,7 +504,7 @@ Timeouts are a really important safety mechanism, they protect your system from 
 
 ## Timeouts
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/timeouts.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/timeouts.png){pad=100}
 
 
 <!-- 
@@ -535,11 +534,13 @@ Timeouts are configured on the http connection manager and apply at a cluster le
 ---
 {layout="14 Title at Top"}
 
-## Retries - statistics
+## Timeouts - statistics
 
+```{style="font-size:24"}
 | Name                  | Type    | Description                                                |
 |-----------------------|---------|------------------------------------------------------------|
 | downstream_rq_timeout | Counter | Total requests closed due to a timeout on the request path |
+```
 
 <!-- -->
 
@@ -594,7 +595,7 @@ Configuring retries like many reliability patterns should be one of “guess, ch
 # Retries
 ## configuration
 
-```json
+```json {style="font-size: 28"}
 "route": {
   "cluster": "service:emojify-api",
   "timeout": "6s", # Maximum time for all retries
@@ -616,13 +617,15 @@ Retries are a cluster level configuration in envoy and are applied to all the en
 
 ## Retries - statistics
 
+Envoy will output statistics when a retry is attempted, these are prefixed with the following syntax **cluster.[name]** If you are using the configurable parameter on our stats_sink use_default_tags then the name part of the statistic will be replaced with a tag called **envoy_cluster_name**.
+
+```{style="font-size:24"}
 | Name                       | Type    | Description                                        |
 | -------------------------- | ------- | -------------------------------------------------- |
 | upstream_rq_retry          | Counter | Total request retries                              |
 | upstream_rq_retry_success  | Counter | Total request retry successes                      |
 | upstream_rq_retry_overflow | Counter | Total requests not retried due to circuit breaking |
-
-Envoy will output statistics when a retry is attempted, these are prefixed with the following syntax **cluster.[name]** If you are using the configurable parameter on our stats_sink use_default_tags then the name part of the statistic will be replaced with a tag called **envoy_cluster_name**.
+```
 
 [https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/route/route.proto#route-retrypolicy](https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/route/route.proto#route-retrypolicy)
 
@@ -650,7 +653,7 @@ Circuit breaking is the process of stopping requests from reaching your endpoint
 
 ## Circuit breaking
 
-INSERT IMAGE
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/circuit_breaking.png)
 
 <!--
 Envoy implements a slightly different pattern which instead opens a circuit when a number of retries to a cluster exceeds a configured value.  This will affect the entire cluster regardless on the number of healthy endpoints and is designed to protect large scale cascading failure.
@@ -662,7 +665,11 @@ When there are a number of outstanding retries the circuit will open and all fut
 ---
 {layout="14 Title at Top"}
 
-## Retries - statistics
+## Circuit breaking - statistics
+
+Whenever a circuit breaking condition occurs Envoy outputs statistics with the following format **cluster.[name].circuit_breakers.[priority]**
+
+```{style="font-size:24"}
 
 | Name            | Type  | Description                                                            |
 | --------------- | ----- | ---------------------------------------------------------------------- |
@@ -670,8 +677,7 @@ When there are a number of outstanding retries the circuit will open and all fut
 | rq_pending_open | Gauge | Whether the pending requests circuit breaker is closed (0) or open (1) |
 | rq_open         | Gauge | Whether the requests circuit breaker is closed (0) or open (1)         |
 | rq_retry_open   | Gauge | Whether the retry circuit breaker is closed (0) or open (1)            |
-
-Whenever a circuit breaking condition occurs Envoy outputs statistics with the following format **cluster.[name].circuit_breakers.[priority]**
+```
 
 [https://www.envoyproxy.io/docs/envoy/v1.9.0/intro/arch_overview/circuit_breaking](https://www.envoyproxy.io/docs/envoy/v1.9.0/intro/arch_overview/circuit_breaking)
 
@@ -693,7 +699,8 @@ Outlier detection in Envoy operates closer to what many may understand as circui
 
 ## Outlier detection
 
-INSERT IMAGE
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/outlier_detection.png)
 
 <!--
 when an endpoint in a load balanced group exceeds a configured tolerance of errors it is temporarily removed from the group as it is assumed to be faulty.
@@ -718,9 +725,9 @@ With periodic success then a tolerance rate is set, should the number of success
 ---
 {layout="14 Title at Top"}
 
-## Outlier detection
+## Outlier detection - Layered
 
-INSERT IMAGE
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/layer.png){pad=100}
 
 <!--
 You can use outlier detection in combination with circuit breaking, and retries, the aim is to ensure that the outlier detection evicts the faulty endpoint before the circuit breaker opens.  The circuit breaker is then protecting downstream from cascading failure in case there is a wider problem with the cluster rather than few flapping endpoints.
@@ -750,25 +757,25 @@ Outlier detection is configured on an cluster which is used by an upstream liste
 
 ## Outlier detection - statistics
 
-| Name                                           | Type    | Description                                                                   |
-| ---------------------------------------------- | ------- | ----------------------------------------------------------------------------- |
-| ejections_enforced_total                       | Counter | Number of enforced ejections due to any outlier type                          |
-| ejections_active                               | Gauge   | Number of currently ejected hosts                                             |
-| ejections_overflow                             | Counter | Number of ejections aborted due to the max ejection %                         |
-| ejections_enforced_consecutive_5xx             | Counter | Number of enforced consecutive 5xx ejections                                  |
-| ejections_detected_consecutive_5xx             | Counter | Number of detected consecutive 5xx ejections (even if unenforced)             |
-| ejections_enforced_success_rate                | Counter | Number of enforced success rate outlier ejections                             |
-| ejections_detected_success_rate                | Counter | Number of detected success rate outlier ejections (even if unenforced)        |
-| ejections_enforced_consecutive_gateway_failure | Counter | Number of enforced consecutive gateway failure ejections                      |
-| ejections_detected_consecutive_gateway_failure | Counter | Number of detected consecutive gateway failure ejections (even if unenforced) |
-| ejections_total                                | Counter | Deprecated. Number of ejections due to any outlier type (even if unenforced)  |
-| ejections_consecutive_5xx                      | Counter | Deprecated. Number of consecutive 5xx ejections (even if unenforced)          |
-
 When an outlier detection event occurs Envoy outputs the following statistics with the name **cluster.[name].outlier_detection**
 
+```{style="font-size: 24"}
+| Name                                           | Type    | Description                                    |
+| ---------------------------------------------- | ------- | -----------------------------------------------|
+| ejections_enforced_total                       | Counter | enforced ejections due to any outlier type     |
+| ejections_active                               | Gauge   | currently ejected hosts                        |
+| ejections_overflow                             | Counter | ejections aborted due to the max ejection %    |
+| ejections_enforced_consecutive_5xx             | Counter | enforced consecutive 5xx ejections             |
+| ejections_detected_consecutive_5xx             | Counter | detected consecutive 5xx ejections             |
+| ejections_enforced_success_rate                | Counter | enforced success rate outlier ejections        |
+| ejections_detected_success_rate                | Counter | detected success rate outlier ejections        |
+| ejections_enforced_consecutive_gateway_failure | Counter | enforced consecutive gateway failure ejections |
+| ejections_detected_consecutive_gateway_failure | Counter | detected consecutive gateway failure ejections |
+```
+
 [https://www.envoyproxy.io/docs/envoy/latest/configuration/cluster_manager/cluster_stats#outlier-detection-statistics](https://www.envoyproxy.io/docs/envoy/latest/configuration/cluster_manager/cluster_stats#outlier-detection-statistics)
-[https://www.envoyproxy.io/docs/envoy/v1.9.0/intro/arch_overview/outlier](https://www.envoyproxy.io/docs/envoy/v1.9.0/intro/arch_overview/outlier)
-[https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/cluster/outlier_detection.proto](https://www.envoyproxy.io/docs/envoy/latest/api-v2/api/v2/cluster/outlier_detection.proto)
+
+<!-- -->
 
 
 ---
