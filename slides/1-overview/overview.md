@@ -15,23 +15,28 @@
 
 We're all Developer Advocates at HashiCorp!
 
-<!--
-TODO: Figure out if there is a straight-forward way to add our photos to this slide.
--->
+---
+{layout="14 Title at Top"}
+
+## Agenda
+
+- Part 1: What is a Service Mesh
+- Break
+- Part 2: Security
+- Lunch
+- Part 3: Observability
+- Break
+- Part 4: Reliability
 
 ---
 {layout="14 Title at Top"}
 
-## Housekeeping & Schedule
+## Housekeeping
 
-<!--
-TODO: Determine what we want to include here, if anything.
-- Where to find workshop content.
-- Our contact info.
-- How to ask questions.
-- Schedule (or should this be on it's own slide?
--->
-
+- feel free to explore
+- demo has limitations
+- time for questions at the end
+- we'll check in with you during exercises
 
 ---
 {layout="14 Title at Top"}
@@ -43,6 +48,7 @@ TODO: Determine what we want to include here, if anything.
 * Prometheus (metrics database)
 * Grafana (metrics dashboard)
 * Kubernetes (scheduler)
+* Instruqt
 
 <!--
 Today we'll be using the following to teach the principles of service mesh.
@@ -55,25 +61,23 @@ Regardless if you are using Consul Connect or Istio as your control plane most o
 
 ## Workshop goal
 
-Excellent general understanding of service mesh concepts you can apply regardless of specific technology choices.
+Good general understanding of service mesh concepts you can apply regardless of specific technology choices.
 
 <!--
 There will be some specifics but we hope that you will be able to walk away from this course with an excellent general understanding of concepts which you will later be able to apply regardless of your technological choice.
 -->
 
 ---
-{layout="01 Main Title - Consul"}
+{layout="99-2 Title Clean"}
 
-# Part 1: What is a Service Mesh
+# Exercise 1
+
+<!-- -->
 
 ---
 {layout="09 Section Title - Consul"}
 
 # What is a Service Mesh
-
-<!--
-TODO: Determine which layout to use, this one or the previous one.
--->
 
 ---
 {layout="09 Section Title - Consul"}
@@ -81,7 +85,7 @@ TODO: Determine which layout to use, this one or the previous one.
 # Dynamic Environments
 
 <!--
-What really makes a service mesh necessary are dynamic environments, which are becominging increasingly common, whether your organization's infrastructure is primarily on-prem, in the cloud, or some mix of each. 
+What really makes a service mesh necessary are dynamic environments, which are becoming increasingly common, whether your organization's infrastructure is primarily on-prem, in the cloud, or some mix of each. 
 
 What do we mean by "dynamic environments"?
 -->
@@ -172,6 +176,9 @@ Like network segmentation, the principle of least privilege is applied and servi
 
 ## Service configuration
 
+* centralized configuration management
+* key/value store
+
 <!--
 
 Centralized configuration management, usually through a key/value store.
@@ -180,6 +187,12 @@ Those of you using Kubernetes will be using etcd for this. Those of you not usin
 
 -->
 
+---
+{layout="99-2 Title Clean"}
+
+# Exercise 2
+
+<!-- -->
 
 ---
 {layout="14 Title at Top"}
@@ -244,43 +257,28 @@ Communication to the server is carried out through the local client, typically t
 
 ## Service mesh benefits
 
-* security
-* observability
-* reliability
-
-<!--
-TODO: Add clear definitions for each of the three terms.
--->
-
----
-{layout="14 Title at Top"}
-
-## Workshop infrastructure overview
-
-<!--
-TODO: Create and include a snazzy diagram explaining workshop infrastructure. Possibly use multiple slides to show infrastructure at each stage of lab to demonstrate how we'll use it to demonstrate 3 main benefits of service mesh.
--->
-
+* **Security:** Segmentation and transport level encryption.
+* **Observability:** Monitoring and more.
+* **Reliability:** Patterns to make systems more resilient to disruption.
 
 ---
 {layout="99-2 Title Clean"}
 
-# Exercise 1
+# Exercise 3
 
 <!-- -->
-
 
 ---
 {layout="14 Title at Top"}
 
-## Lab 0: Get started
+## Emojify infrastructure overview
 
-- 1. Login to Instruqt and get familiar with environment
-- 2. Install Consul with helm chart
-- 3. Install emojify app.
-- 4. Install Prometheus and Grafana
-- 5. Configure Grafana
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/1-overview/images/overview.png){pad=100}
 
-<!--
--->
+---
+{layout="99-2 Title Clean"}
+
+# Exercise 4-5
+
+<!-- -->
 
