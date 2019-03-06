@@ -231,7 +231,7 @@ data:
                 "outlier_detection": {
                   "consecutive_5xx": 5,
                   "consecutive_gateway_failure": 5,
-                  "base_ejection_time": "30s"
+                  "base_ejection_time": "60s"
                 }
               }
             EOL
@@ -266,7 +266,12 @@ data:
                                   },
                                   "route": {
                                     "cluster": "service:emojify-api",
-                                    "timeout": "6s"
+                                    "timeout": "6s",
+                                    "retry_policy": {
+                                      "retry_on": "5xx",
+                                      "num_retries": 2,
+                                      "per_try_timeout": "2s"
+                                    }
                                   }
                                 }
                               ]
