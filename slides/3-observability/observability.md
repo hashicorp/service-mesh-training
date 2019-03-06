@@ -29,23 +29,24 @@ Before we dive into this let’s re-visit a concept which should be familiar, mo
 ---
 {layout="14 Title at Top"}
 
-## Monitoring is something we perform against our applications and systems to determine their state 
+## Monitoring 
 
+**Monitoring is something we perform against our applications and systems to determine their state**
 - is a service up or down?
 - detecting problems and anomalies
 - gain insight to capacity problems
 - performance trends over time 
 
-
 <!--
 -->
+
 
 ---
 {layout="14 Title at Top"}
 
 ## Internal and external instrumentation
 
-![](https://github.com/hashicorp/service-mesh-training/blob/master/slides/3-observability/images/internal_external.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/3-observability/images/internal_external.png)
 
 <!--
 We use instrumentation both internal an external to achieve this, for example, we may have an external health check which probes an application’s state or determines the current resource consumption.  We may have internal statistics which report the performance of a particular block of code or the time taken to perform a database transaction.
@@ -72,19 +73,12 @@ With regard to internal metrics which are explicitly emitted by your application
 - Originally created by Etsy
 - Push based metrics
 - Lightweight UDP protocol
-- No support for meta data
+- No support for metadata
 
 <!--
 I could tell you a joke about UDP but you might not get it
 -->
 
-
----
-{layout="14 Title at Top"}
-
-## StatsD - Metric Types
-
-<!-- -->
 
 ---
 {layout="11-3 Code Editor"}
@@ -106,10 +100,14 @@ StatsD is a project originally created by Etsy, it defines a light weight protoc
 
 ## StatsD - Metric Types
 
-- Counter - Increment value, e.g. number of method calls 
-- Gauge - Value over time, e.g. CPU consumption, memory usage
-- Timing - Time taken to perform a task, e.g. time take to perform a method call
-- Set - Set of unique values over collection period
+```{style="font-size: 34pt"}
+| Type    | Description                                                           |
+|---------|-----------------------------------------------------------------------|
+| Counter | Increment value, e.g. number of method calls                          | 
+| Gauge   | Value over time, e.g. CPU consumption, memory usage                   |
+| Timing  | Time taken to perform a task, e.g. time take to perform a method call |
+| Set     | Set of unique values over collection period                           |
+```
 
 <!--
 
@@ -119,7 +117,8 @@ StatsD is a project originally created by Etsy, it defines a light weight protoc
 ---
 {layout="11-3 Code Editor"}
 
-## StatsD - Problem with basic metric labels
+# StatsD
+## Problem with basic metric labels
 
 ```
 myservice.service1.mymethod.called
@@ -132,20 +131,26 @@ While we not have granularity which allows us to infer differences between our s
 -->
 
 
+---
+{layout="14 Title at Top"}
+
 ## StatsD - DogStatsD
 
 - Created by DataDog based on StatsD protocol
 - Push based metrics
 - Lightweight UDP protocol
-- Support for meta data through tags
+- Support for metadata through tags
   
+<!-- -->
+
 
 ---
 {layout="11-3 Code Editor"}
 
-## StatsD - DogStatsD 
+# StatsD
+## DogStatsD 
 
-```
+```{style="font-size:32pt"}
 myservice.mymethod.called tags[serviceid:service1]
 myservice.mymethod.called tags[serviceid:service2]
 myservice.mymethod.called tags[serviceid:service3]
@@ -164,8 +169,8 @@ This gives us the best of both worlds, we can have aggregated data but if necess
 ## Prometheus 
 
 - Pull based approach from central server
-- Service implements HTTP enpoint exposing metrics
-- Supports meta data by default
+- Service implements HTTP endpoint exposing metrics
+- Supports metadata by default
 
 <!--
 Prometheus takes a slightly different approach, rather than a push based approach where your metrics are sent to a collector using UDP.  Prometheus requires you to implement a HTTP endpoint which exposed your metrics in the Prometheus format.  This is then scraped by the Prometheus server at predetermined intervals. Prometheus also supports tags by default.
@@ -178,7 +183,7 @@ Prometheus takes a slightly different approach, rather than a push based approac
 # Prometheus 
 ## statistic format
 
-```
+```{style="font-size: 28pt"}
 envoy_http_downstream_rq_completed{envoy_http_conn_manager_prefix="ingress_cache"} 23421
 ```
 
@@ -188,9 +193,14 @@ envoy_http_downstream_rq_completed{envoy_http_conn_manager_prefix="ingress_cache
 
 ## Prometheus - Metrics types
 
-- Counter - cumulative metric, representing a monotonically increasing counter, e.g. number of method calls
-- Gauge - single numerical value that can arbitrarily go up and down, e.g. CPU consumption
-- Histogram - samples observations and counts them in configurable buckets, e.g. request timings
+```{style="font-size: 28pt"}
+| Type      | Description                                                                          |
+|-----------|------------------------------------------------------------------------------------|
+| Counter   | cumulative metric, representing a monotonically increasing counter,                  | 
+|           | e.g. number of method calls                                                          |
+| Gauge     | single numerical value that can arbitrarily go up and down, e.g. CPU consumption     |
+| Histogram | samples observations and counts them in configurable buckets, e.g. request timings   |
+```
 
 <!--
 -->
@@ -209,7 +219,7 @@ The term originates from the world of engineering and control theory, in summary
 ---
 {layout="14 Title at Top"}
 
-# Observability 
+## Observability 
 
 ![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/3-observability/images/observability.png)
 
@@ -270,6 +280,8 @@ Envoy is predominately composed of:
 
 ## Data plane (Envoy) - architecture
 
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/3-observability/images/architecture.png)
+
 <!--
 In terms of network reliability Listeners and Listener filters are things that you should think about monitoring as they expose metrics like connection status, HTTP/gRPC response and the status of various retry patterns.  There are also certain statistics which are output from a Cluster, these are reliability patterns such as rate limiting, circuit breaking and outlier ejection, and authentication.
 
@@ -282,14 +294,16 @@ We also need to consider administrative functions, it can be useful to monitor E
 
 ## Data plane (Envoy) - terminology
 
-Name   | Description
--------|--------------------------------
-ADS    | Aggregated Discovery Service 
-EDS    | Endpoint Discovery Service 
-LDS    | Listener Discovery Service
-RDS    | Router Discovery Service
-CDS    | Cluster Discovery Service
-SDS    | Secret Discovery Service (TLS Certificates)
+```
+| Name   | Description                                 |
+| -------|---------------------------------------------|
+| ADS    | Aggregated Discovery Service                |
+| EDS    | Endpoint Discovery Service                  | 
+| LDS    | Listener Discovery Service                  |
+| RDS    | Router Discovery Service                    |
+| CDS    | Cluster Discovery Service                   |
+| SDS    | Secret Discovery Service (TLS Certificates) |
+```
 
 <!--
 -->
@@ -300,8 +314,6 @@ SDS    | Secret Discovery Service (TLS Certificates)
 
 ## Data plane (Envoy) - terminology
 
-Generally the statistics fall into three categories:
-
 - **Downstream**: Downstream statistics relate to incoming connections/requests. They are emitted by listeners, the HTTP connection manager, the TCP proxy filter, etc.
 - **Upstream**: Upstream statistics relate to outgoing connections/requests. They are emitted by connection pools, the router filter, the TCP proxy filter, etc.
 - **Server**: Server statistics describe how the Envoy server instance is working. Statistics like server up-time or amount of allocated memory are categorized here.
@@ -310,20 +322,6 @@ Generally the statistics fall into three categories:
 Before we dive into Envoy’s statistics we need to understand some core terminology, Envoy emits a large number of statistics depending on how it is configured. Generally the statistics fall into three categories:
 
 A single proxy scenario typically involves both downstream and upstream statistics. The two types can be used to get a detailed picture of that particular network hop. Statistics from the entire mesh give a very detailed picture of each hop and overall network health. The statistics emitted are documented in detail in the operations guide. 
--->
-
-
----
-{layout="14 Title at Top"}
-
-## Data plane (Envoy) - connections and requests
-
-- Connections are a point to point network connection between Envoy proxies
-- Requests are a single request between a downstream (client) and an upstream (proxy)
-- Connections and requests are **not** a 1-1 mapping
-
-<!--
-When we are looking at our metrics we need to differentiate between a connection and a request, Envoy metrics use the convention cx for a connection and rq for a request.  The important thing to remember when we are looking at this is that connections and requests are not a one to one mapping.  Where possible envoy will use HTTP keep-alive that means that a single connection will be used for multiple request and responses.  The benefit to this is that we do not need to waste time by renegotiating a connection and in the instance where TLS or mTLS is used we do not need to Handshake and validate certificates.  This can add significant performance benefits to your application.  Where monitoring comes in to this is that we need to monitor both of these, we monitor connections as a significant number of opening and closing connections can highlight an inefficient network transport and potentially a malfunctioning service.  We need to monitor requests as we give us an understanding of the time it takes to perform a request, the status (success or fail) and the data transferred.  
 -->
 
 
@@ -396,7 +394,7 @@ Configuring statistics for StatsD must be done through the Envoy bootstrap proce
 # Data plane (Envoy)
 ## statistics config
 
-```
+```yaml
 stats_sinks:
 - name: "envoy.dog_statsd"
   config:
@@ -442,6 +440,61 @@ In addition to this we often need to get the instance id or IP address of the st
 
 
 ---
+{layout="99-2 Title Clean"}
+
+# Exercise 1
+
+<!-- -->
+
+
+---
+{layout="14 Title at Top"}
+
+## Data plane (Envoy) - connections and requests
+
+- Connections are a point to point network connection between Envoy proxies
+- Requests are a single request between a downstream (client) and an upstream (proxy)
+- Connections and requests are **not** a 1-1 mapping
+
+<!--
+When we are looking at our metrics we need to differentiate between a connection and a request, Envoy metrics use the convention cx for a connection and rq for a request.  The important thing to remember when we are looking at this is that connections and requests are not a one to one mapping.  Where possible envoy will use HTTP keep-alive that means that a single connection will be used for multiple request and responses.  The benefit to this is that we do not need to waste time by renegotiating a connection and in the instance where TLS or mTLS is used we do not need to Handshake and validate certificates.  This can add significant performance benefits to your application.  Where monitoring comes in to this is that we need to monitor both of these, we monitor connections as a significant number of opening and closing connections can highlight an inefficient network transport and potentially a malfunctioning service.  We need to monitor requests as we give us an understanding of the time it takes to perform a request, the status (success or fail) and the data transferred.  
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## Connections - statistics
+
+```{style="font-size: 24pt"}
+| Name                                          | Type      | Description                                      |
+| --------------------------------------------- | --------- | -------------------------------------------------|
+| downstream_cx_total                           | Counter   | Total connections                                |
+| downstream_cx_destroy                         | Counter   | Total connections destroyed                      |
+| downstream_cx_destroy_remote                  | Counter   | Total connections destroyed due to remote close  |
+| downstream_cx_destroy_local                   | Counter   | Total connections destroyed due to local close   |
+| downstream_cx_active                          | Gauge     | Total active connections                         |
+| downstream_cx_protocol_error                  | Counter   | Total protocol errors                            |
+| downstream_cx_length_ms                       | Histogram | Connection length milliseconds                   |
+| downstream_cx_rx_bytes_total                  | Counter   | Total bytes received                             |
+| downstream_cx_tx_bytes_total                  | Counter   | Total bytes sent                                 |
+| downstream_cx_idle_timeout                    | Counter   | Total connections closed due to idle timeout     |
+```
+
+[https://www.envoyproxy.io/docs/envoy/latest/configuration/http_conn_man/stats](https://www.envoyproxy.io/docs/envoy/latest/configuration/http_conn_man/stats)
+
+<!-- -->
+
+
+---
+{layout="99-2 Title Clean"}
+
+# Exercise 2
+
+<!-- -->
+
+
+---
 {layout="14 Title at Top"}
 
 ## Data plane (Envoy) - L4 and L7
@@ -480,16 +533,11 @@ For example, with L4 we will see requests but only success or fail, a failure is
 # Data plane (Envoy)
 ## configuring L7
 
-```json
+```json {style="font-size: 22pt"}
 {
   "@type": "type.googleapis.com/envoy.api.v2.Listener",
   "name": "public_listener:${POD_IP}:20000",
-  "address": {
-    "socketAddress": {
-      "address": "${POD_IP}",
-      "portValue": 20000
-    }
-  },
+  # ...
   "filterChains": [
     {
       "filters": [
@@ -499,22 +547,7 @@ For example, with L4 we will see requests but only success or fail, a failure is
             "stat_prefix": "ingress_http",
             "route_config": {
               "name": "local_route",
-              "virtual_hosts": [
-                {
-                  "name": "backend",
-                  "domains": ["*"],
-                  "routes": [
-                    {
-                      "match": {
-                        "prefix": "/"
-                      },
-                      "route": {
-                        "cluster": "local_app"
-                      }
-                    }
-                  ]
-                }
-              ]
+              # ...
             },
             "http_filters": [
               {
@@ -529,6 +562,78 @@ For example, with L4 we will see requests but only success or fail, a failure is
   ]
 }
 ```
+
+
+---
+{layout="99-2 Title Clean"}
+
+# Exercise 3
+
+<!-- -->
+
+
+---
+{layout="14 Title at Top - 2 Col"}
+
+## Control plane - External Authorization
+
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/data_plane_6.png){pad=100}
+
+{.column}
+
+9. Envoy validates that the connections is allowed by calling the ext_authz filters api (once per new connection)
+10. If allowed the request is passed to the upstream service
+11. Send the response to the caller
+
+<!--
+We learned in the security module that the service mesh gives us network and service level segmentation by using a combination of identification using mTLS and authentication with policy through the control plane.  Many service meshes have distributed components for this autorization which gives us reliability however we do still need to monitor it.
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## Control plane - External Authorization
+
+- External authorization API is normally called when establishing a new connection to an upstream
+- Failed authorization is an indication of a failing control plane, misconfiguration of security policy, or malicious activity
+
+<!-- Authorization should be cached by Envoy and the upstream Auth API should only be called when establishing a new connection, we should monitor this closely both to ensure the efficient operation of our systems but also as a possible early warning against malicious activity.
+When a connection is flapping due to a failure or a network problem Envoy will increase the number of authentication requests on the control plane, this can potentially overload the system if the problem becomes wide spread.
+Failed authentication is equally important, most importantly it can indicate to us that there is malicious activity in the system.  If a service is attempting to connect to a service which it is not allowed and this is not misconfiguration then it can give us early warning that something is probing the system.  Failed authentication can also be due to a misconfigured control plane, either the policy or a failing control plan itself.  Without authentication no traffic will flow through your application it is essential this component is carefully monitored.
+-->
+
+
+---
+{layout="14 Title at Top"}
+
+## Control plane - External Authorization Statistics
+
+```{style="font-size: 24pt"}
+| Name                 | Type    | Description                                                                              |
+| -------------------- | ------- | ---------------------------------------------------------------------------------------- |
+| total                | Counter | Total responses from the filter.                                                         |
+| error                | Counter | Total errors contacting the external service.                                            |
+| denied               | Counter | Total responses from the authorizations service that were to deny the traffic.           |
+| failure_mode_allowed | Counter | Total requests that were error(s) but allowed because of failure_mode_allow set to true. |
+| ok                   | Counter | Total responses from the authorization service that were to allow the traffic.           |
+| cx_closed            | Counter | Total connections that were closed.                                                      |
+| active               | Gauge   | Total currently active requests in transit to the authorization service.                 |
+```
+
+https://www.envoyproxy.io/docs/envoy/latest/configuration/network_filters/ext_authz_filter
+
+<!--
+
+-->
+
+
+---
+{layout="99-2 Title Clean"}
+
+# Exercise 4
+
+<!-- -->
 
 
 ---
@@ -569,7 +674,7 @@ To enable gRPC services we need to add a couple of features, firstly we need to 
 # Data plane (Envoy)
 ## enabling HTTP2 for gRPC connections
 
-```json
+```json {style="font-size: 30pt"}
 {
     "@type": "type.googleapis.com/envoy.api.v2.Cluster",
     "name": "local_app",
@@ -610,5 +715,26 @@ To enable statistics for gRPC services we need to enable the grpc_http1_bridge i
 
 ## gRPC Statistics
 
+The filter emits statistics in the cluster.[route target cluster].grpc. namespace.
+
+```json {style="font-size: 26pt"}
+| Name                                 | Type    | Description                            |
+| ------------------------------------ | ------- | ------------------------------------- |
+| [grpc service].[grpc method].success | Counter | Total successful service/method calls |
+| [grpc service].[grpc method].failure | Counter | Total failed service/method calls     |
+| [grpc service].[grpc method].total   | Counter | Total service/method calls            |
+```
+
+[https://www.envoyproxy.io/docs/envoy/latest/configuration/http_filters/grpc_http1_bridge_filter.html](https://www.envoyproxy.io/docs/envoy/latest/configuration/http_filters/grpc_http1_bridge_filter.html)
+
 <!--
 -->
+
+
+---
+{layout="99-2 Title Clean"}
+
+# Exercise 5
+
+<!-- -->
+
