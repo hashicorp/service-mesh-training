@@ -19,20 +19,3 @@ The default values are all sufficient. The **HTTP URL** is `http://localhost:909
 ![Configure Prometheus data source in Grafana](../../images/lab01-configure-grafana.png "Configure Prometheus data source in Grafana")
 
 Click **Save & Test**.
-
-## Step 2: Load dashboard
-
-Next you'll import the API monitoring dashboard.
-
-Click **+ Create** > **Import**:
-
-![](../../images/lab01-grafana-create-import.png "")
-
-Open the [api dashboard](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/grafana-dashboards/api.json) in your browser and copy and paste it into the **or paste JSON** field and click **Load**:
-
-![](../../images/lab01-grafana-dashboard-import-01.png)
-
-Then click **Save**:
-
-![](../../images/lab01-grafana-dashboard-import-02.png)
-

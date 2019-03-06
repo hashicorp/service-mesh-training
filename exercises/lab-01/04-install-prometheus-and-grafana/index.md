@@ -10,7 +10,7 @@ First, navigate to this exercise's directory:
 cd ~/service-mesh-training/exercises/lab-01/04-install-prometheus-and-grafana/
 ```
 
-Install Prometheus and Grafana with `kubectl apply`:
+Install Prometheus with `kubectl apply`:
 
 ```
 kubectl apply -f files/prometheus
@@ -22,6 +22,23 @@ service/prometheus created
 service/grafana created
 statefulset.apps/prometheus-statefulset created
 daemonset.apps/prometheus-statsd created
+```
+
+Install Grafana with `kubectl apply`:
+
+```
+kubectl apply -f files/metrics-server
+
+clusterrole.rbac.authorization.k8s.io/system:aggregated-metrics-reader created
+clusterrolebinding.rbac.authorization.k8s.io/metrics-server:system:auth-delegator created
+rolebinding.rbac.authorization.k8s.io/metrics-server-auth-reader created
+apiservice.apiregistration.k8s.io/v1beta1.metrics.k8s.io created
+serviceaccount/metrics-server created
+deployment.extensions/metrics-server created
+service/metrics-server created
+clusterrole.rbac.authorization.k8s.io/system:metrics-server created
+clusterrolebinding.rbac.authorization.k8s.io/system:metrics-server created
+
 ```
 
 ## Step 2: Verify installation
@@ -49,30 +66,6 @@ Click on the **Grafana** tab in Instruqt and you should see the Grafana user int
 
 The default credentials are username **admin** and password **admin**.
 
-We won't be using it for this workshop, but you can also see the **Prometheus** dashboard on that tab:
+We won't be using it much for this workshop, but you can also see the **Prometheus** dashboard on that tab:
 
 ![Prometheus dashboard](../../images/lab01-prometheus.png "Prometheus")
-
-## Step 3: Deploy load testing service
-
-We'll use Gatling to load our Emojify service. Deploy with `kubectl apply`:
-
-```
-kubectl apply -f files/load-test.yml
-
-configmap/emojify-loadtest-configmap created
-deployment.apps/emojify-loadtest created
-```
-
-You can verify the load testing has been deployed with:
-
-```
-NAME                                                          READY   UP-TO-DATE   AVAILABLE   AGE
-emojify-api-external-cache                                    1/1     1            1           54m
-emojify-cache                                                 1/1     1            1           54m
-emojify-facebox                                               1/1     1            1           54m
-emojify-ingress                                               1/1     1            1           54m
-emojify-loadtest                                              1/1     1            1           47m
-emojify-website                                               1/1     1            1           54m
-intended-buffalo-consul-connect-injector-webhook-deployment   1/1     1            1           55m
-```

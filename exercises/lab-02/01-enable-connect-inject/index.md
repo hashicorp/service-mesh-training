@@ -34,7 +34,7 @@ Here we've added [annotations](https://kubernetes.io/docs/concepts/overview/work
 
 Once applied, Envoy will be injected into every pod and will handle all traffic between pods via localhost proxies. The API service will be able to connect to upstream services `emojify-faceboox` and `emojify-cache`. The ingress will be able to connect to upstream services `emojify-website` and `emojify-api`.
 
-TODO: add diagram here
+![Emojify architecture](../../../slides/1-overview/images/overview.png "Emojify architecture")
 
 ## Step 2: Apply updated chart / configs
 
