@@ -11,6 +11,12 @@
   ],
   "__requires": [
     {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
@@ -26,18 +32,6 @@
       "type": "datasource",
       "id": "prometheus",
       "name": "Prometheus",
-      "version": "5.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "singlestat",
-      "name": "Singlestat",
-      "version": "5.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "text",
-      "name": "Text",
       "version": "5.0.0"
     }
   ],
@@ -58,7 +52,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1551877044611,
+  "iteration": 1551878036466,
   "links": [],
   "panels": [
     {
@@ -69,72 +63,44 @@
         "x": 0,
         "y": 0
       },
-      "id": 27,
+      "id": 26,
       "panels": [],
-      "title": "General",
+      "title": "General Statistics",
       "type": "row"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "#d44a3a",
-        "rgba(237, 129, 40, 0.89)",
-        "#299c46"
-      ],
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": true,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
         "x": 0,
         "y": 1
       },
-      "id": 8,
-      "interval": null,
+      "id": 6,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
+      "options": {
+        "maxValue": 100,
+        "minValue": 0,
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "thresholds": [
+          {
+            "color": "#7EB26D",
+            "index": 0,
+            "value": null
+          }
+        ],
+        "valueMappings": [],
+        "valueOptions": {
+          "decimals": 0,
+          "prefix": "",
+          "stat": "avg",
+          "suffix": "",
+          "unit": "none"
         }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
       },
-      "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(rate(api_service_emojify_called_count{status!=\"200\"}[1m])+rate(api_service_cache_called_count{status!=\"200\"}[1m]))+sum(rate(api_service_error_injected[1m]))",
+          "expr": "sum(rate(cache_service_cache_get_count{status=\"200\"}[60s])+rate(cache_service_cache_put_count{status=\"200\"}[60s]))+sum(rate(cache_service_cache_exists_count{status=\"302\"}[60s]))",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -142,99 +108,55 @@
           "refId": "A"
         }
       ],
-      "thresholds": "",
-      "title": "API errors/s",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Cache requests / s",
+      "type": "gauge"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "#d44a3a",
-        "rgba(237, 129, 40, 0.89)",
-        "#299c46"
-      ],
-      "description": "",
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": true,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 12,
         "x": 12,
         "y": 1
       },
-      "id": 6,
-      "interval": null,
+      "id": 10,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
+      "options": {
+        "maxValue": 100,
+        "minValue": 0,
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "thresholds": [
+          {
+            "color": "#F2495C",
+            "index": 0,
+            "value": null
+          }
+        ],
+        "valueMappings": [],
+        "valueOptions": {
+          "decimals": 0,
+          "prefix": "",
+          "stat": "avg",
+          "suffix": "",
+          "unit": "none"
         }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true
       },
-      "tableColumn": "__name__",
       "targets": [
         {
-          "expr": "sum(rate(api_service_emojify_called_count{status=\"200\"}[1m])+rate(api_service_cache_called_count{status=\"200\"}[1m]))",
+          "expr": "sum(rate(cache_service_cache_exists{status=~\"5.*\"}[60s])+rate(cache_service_cache_put{status=~\"5.*\"}[60s])+rate(cache_service_cache_get{status=~\"5.*\"}[60s]))+sum(rate(cache_service_cache_exists_count{status=~\"5.*\"}[60s]))",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "Success",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
-      "thresholds": "",
-      "title": "API requests/s",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Errors/s",
+      "type": "gauge"
     },
     {
       "aliasColors": {},
@@ -243,12 +165,13 @@
       "dashes": false,
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 12,
         "x": 0,
-        "y": 10
+        "y": 9
       },
-      "id": 21,
+      "id": 12,
+      "interval": "",
       "legend": {
         "avg": false,
         "current": false,
@@ -268,14 +191,15 @@
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate (container_cpu_usage_seconds_total{container_name!=\"POD\",pod_name=~\"emojify-api-.*\",name=~\"^k8s_.*\"}[1m])) by(container_name)",
+          "expr": "sum(rate (container_cpu_usage_seconds_total{container_name!=\"POD\",pod_name=~\"emojify-cache-.*\",name=~\"^k8s_.*\"}[1m])) by(container_name)",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "",
+          "legendFormat": "{{container_name}}",
           "refId": "A"
         }
       ],
@@ -299,16 +223,17 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": null,
+          "decimals": null,
+          "format": "none",
+          "label": "cores",
           "logBase": 1,
           "max": null,
           "min": null,
           "show": true
         },
         {
-          "format": "short",
-          "label": null,
+          "format": "none",
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -327,12 +252,12 @@
       "dashes": false,
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 12,
         "x": 12,
-        "y": 10
+        "y": 9
       },
-      "id": 23,
+      "id": 14,
       "legend": {
         "avg": false,
         "current": false,
@@ -352,14 +277,15 @@
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(container_memory_working_set_bytes{container_name!=\"POD\",name=~\"^k8s_.*\",pod_name=~\"emojify-api-.*\"}) by (container_name)",
+          "expr": "sum(container_memory_working_set_bytes{container_name!=\"POD\",name=~\"^k8s_.*\",pod_name=~\"emojify-cache-.*\"}) by (container_name)",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "",
+          "legendFormat": "{{container_name}}",
           "refId": "A"
         }
       ],
@@ -367,7 +293,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "POD Memory",
+      "title": "Pod Memory Usage",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -383,7 +309,7 @@
       },
       "yaxes": [
         {
-          "format": "bytes",
+          "format": "decbytes",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -405,16 +331,16 @@
       }
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 16
       },
-      "id": 29,
+      "id": 28,
       "panels": [],
-      "title": "Envoy Stats",
+      "title": "Envoy Statistics",
       "type": "row"
     },
     {
@@ -424,23 +350,20 @@
       "dashes": false,
       "fill": 1,
       "gridPos": {
-        "h": 9,
-        "w": 19,
+        "h": 8,
+        "w": 24,
         "x": 0,
-        "y": 19
+        "y": 17
       },
-      "id": 13,
+      "id": 18,
       "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "hideZero": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
         "show": true,
         "total": false,
-        "values": true
+        "values": false
       },
       "lines": false,
       "linewidth": 1,
@@ -456,19 +379,126 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(envoy_ext_authz_connect_authz_ok{label_app=\"emojify-api\", name=~\"^$pod_name$\"}[1m]))",
+          "expr": "increase(envoy_http_downstream_cx_total{envoy_http_conn_manager_prefix=\"ingress_cache\", name=~\"^$pod_name$\"}[1m])",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "ok",
+          "legendFormat": "total",
           "refId": "A"
         },
         {
-          "expr": "sum(increase(envoy_ext_authz_connect_authz_error{label_app=\"emojify-api\", name=~\"^$pod_name$\"}[1m]))",
+          "expr": "sum(increase(envoy_http_downstream_cx_active{envoy_http_conn_manager_prefix=\"ingress_cache\", name=~\"^$pod_name$\"}[1m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "active",
+          "refId": "B"
+        },
+        {
+          "expr": "sum(increase(envoy_http_downstream_cx_destroy_remote{envoy_http_conn_manager_prefix=\"ingress_cache\", name=~\"^$pod_name$\"}[1m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "destroy-remote",
+          "refId": "C"
+        },
+        {
+          "expr": "sum(increase(envoy_http_downstream_cx_destroy_local{envoy_http_conn_manager_prefix=\"ingress_cache\", name=~\"^$pod_name$\"}[1m]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "destroy-local",
+          "refId": "D"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Current Envoy Upstream Connections",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "description": "",
+      "fill": 1,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 16,
+      "interval": "",
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "rate(envoy_ext_authz_connect_authz_ok{name=~\"emojify-cache.*\"}[30s])",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "error",
+          "legendFormat": "{{name}}-ok",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(envoy_ext_authz_connect_authz_error{name=~\"emojify-cache.*\"}[30s])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{name}}-error",
           "refId": "B"
         }
       ],
@@ -514,51 +544,28 @@
       }
     },
     {
-      "content": "# Authz\nEnvoy will close a connection which either timesout or returns an error state: [https://github.com/envoyproxy/envoy/issues/5023](https://github.com/envoyproxy/envoy/issues/5023)\n",
-      "gridPos": {
-        "h": 9,
-        "w": 5,
-        "x": 19,
-        "y": 19
-      },
-      "id": 14,
-      "links": [],
-      "mode": "markdown",
-      "targets": [
-        {
-          "expr": "envoy_ext_authz_connect_authz_error",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Envoy Authz Error",
-      "type": "text"
-    },
-    {
       "aliasColors": {},
       "bars": true,
       "dashLength": 10,
       "dashes": false,
       "fill": 1,
       "gridPos": {
-        "h": 11,
+        "h": 10,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 32
       },
-      "id": 18,
+      "id": 2,
+      "interval": "",
       "legend": {
         "alignAsTable": true,
         "avg": true,
         "current": true,
         "max": true,
         "min": true,
+        "rightSide": false,
         "show": true,
-        "total": false,
+        "total": true,
         "values": true
       },
       "lines": false,
@@ -575,43 +582,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(envoy_http_downstream_cx_total{envoy_http_conn_manager_prefix=\"ingress_api\", name=~\"^$pod_name$\"}[1m]))",
+          "expr": "sum(increase(envoy_cluster_grpc_0{label_app=\"emojify-cache\"}[30s])) by (envoy_grpc_bridge_method)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "total",
+          "legendFormat": "{{envoy_grpc_bridge_method}}",
           "refId": "A"
-        },
-        {
-          "expr": "sum(increase(envoy_http_downstream_cx_active{envoy_http_conn_manager_prefix=\"ingress_api\", name=~\"^$pod_name$\"}[1m]))",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "active",
-          "refId": "B"
-        },
-        {
-          "expr": "sum(increase(envoy_http_downstream_cx_destroy_remote{envoy_http_conn_manager_prefix=\"ingress_api\", name=~\"^$pod_name$\"}[1m]))",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "destroy-remote",
-          "refId": "E"
-        },
-        {
-          "expr": "sum(increase(envoy_http_downstream_cx_destroy_local{envoy_http_conn_manager_prefix=\"ingress_api\", name=~\"^$pod_name$\"}[1m]))",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "destroy-local",
-          "refId": "C"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Envoy Connections - downstream",
+      "title": "Cache Success gRPC",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -658,19 +641,19 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 39
+        "y": 42
       },
-      "id": 16,
+      "id": 19,
+      "interval": "",
       "legend": {
         "alignAsTable": true,
         "avg": true,
         "current": true,
-        "hideZero": true,
         "max": true,
         "min": true,
         "rightSide": false,
         "show": true,
-        "total": false,
+        "total": true,
         "values": true
       },
       "lines": false,
@@ -683,15 +666,15 @@
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
-      "stack": true,
+      "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(envoy_http_downstream_rq_xx{envoy_http_conn_manager_prefix=\"ingress_api\", name=~\"^$pod_name$\"}[30s])) by (envoy_response_code_class,name)",
+          "expr": "sum(increase(envoy_cluster_grpc_failure{label_app=\"emojify-cache\"}[30s])) by (envoy_grpc_bridge_method)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{envoy_response_code_class}}xx-{{name}}",
+          "legendFormat": "{{envoy_grpc_bridge_method}}",
           "refId": "A"
         }
       ],
@@ -699,7 +682,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Envoy Inbound Requests (downstream)",
+      "title": "Cache Failure gRPC",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -738,48 +721,47 @@
     },
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "dashLength": 10,
       "dashes": false,
+      "description": "",
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 24,
         "x": 0,
-        "y": 47
+        "y": 50
       },
-      "id": 32,
+      "id": 4,
       "legend": {
         "alignAsTable": true,
         "avg": true,
         "current": true,
-        "hideZero": true,
         "max": true,
         "min": true,
-        "rightSide": false,
         "show": true,
-        "total": false,
+        "total": true,
         "values": true
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
-      "nullPointMode": "null as zero",
+      "nullPointMode": "null",
       "paceLength": 10,
       "percentage": false,
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
-      "stack": true,
+      "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(envoy_http_downstream_cx_tx_bytes_total{envoy_http_conn_manager_prefix=\"ingress_api\", name=~\"^$pod_name$\"}[30s])) by (name)",
+          "expr": "sum(increase(envoy_cluster_grpc_5{label_app=\"emojify-cache\"}[30s])) by(envoy_grpc_bridge_method)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{envoy_response_code_class}}xx-{{name}}",
+          "legendFormat": "{{envoy_grpc_bridge_method}}",
           "refId": "A"
         }
       ],
@@ -787,7 +769,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Envoy Connections Data Transferred (per second)",
+      "title": "Cache Not Found gRPC",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -803,7 +785,7 @@
       },
       "yaxes": [
         {
-          "format": "bytes",
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -830,9 +812,9 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 55
+        "y": 57
       },
-      "id": 31,
+      "id": 30,
       "panels": [],
       "title": "Application Statistics",
       "type": "row"
@@ -844,23 +826,21 @@
       "dashes": false,
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 24,
         "x": 0,
-        "y": 56
+        "y": 58
       },
-      "id": 11,
+      "id": 21,
       "interval": "",
       "legend": {
-        "alignAsTable": true,
-        "avg": true,
+        "avg": false,
         "current": false,
-        "hideEmpty": true,
-        "max": true,
-        "min": true,
+        "max": false,
+        "min": false,
         "show": true,
         "total": false,
-        "values": true
+        "values": false
       },
       "lines": true,
       "linewidth": 1,
@@ -868,20 +848,18 @@
       "nullPointMode": "null as zero",
       "paceLength": 10,
       "percentage": false,
-      "pointradius": 5,
+      "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
-      "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(api_service_cache_called_sum{name=~\"^$pod_name$\"}[10s])/rate(api_service_cache_called_count{name=~\"^$pod_name$\"}[10s])) by (status)",
+          "expr": "rate(cache_service_cache_get_sum[30s])/rate(cache_service_cache_get_count[30s])",
           "format": "time_series",
-          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{status}}",
+          "legendFormat": "{{name}}-{{status}}",
           "refId": "A"
         }
       ],
@@ -889,7 +867,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Emojify API Request Duration /cache GET(ms)",
+      "title": "Cache Get (ms)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -905,7 +883,6 @@
       },
       "yaxes": [
         {
-          "decimals": null,
           "format": "ms",
           "label": null,
           "logBase": 1,
@@ -919,7 +896,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": false
+          "show": true
         }
       ],
       "yaxis": {
@@ -934,291 +911,192 @@
       "dashes": false,
       "fill": 1,
       "gridPos": {
-        "h": 8,
+        "h": 7,
         "w": 24,
         "x": 0,
-        "y": 64
+        "y": 65
+      },
+      "id": 22,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null as zero",
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "rate(cache_service_cache_put_sum[30s])/rate(cache_service_cache_put_count[30s])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{name}}-{{status}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Cache Put (ms)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "ms",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "description": "",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 72
+      },
+      "id": 8,
+      "interval": "",
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "cache_service_cache_invalidate_sum/cache_service_cache_invalidate_count",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{name}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Cache invalidation (ms)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "ms",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 72
       },
       "id": 24,
       "interval": "",
       "legend": {
-        "alignAsTable": true,
-        "avg": true,
+        "avg": false,
         "current": false,
-        "hideEmpty": true,
-        "max": true,
-        "min": true,
+        "max": false,
+        "min": false,
         "show": true,
         "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null as zero",
-      "paceLength": 10,
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(api_service_emojify_called_sum{name=~\"^$pod_name$\"}[30s])/rate(api_service_emojify_called_count{name=~\"^$pod_name$\"}[30s])) by (status)",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "{{status}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Emojify API Request Duration / POST (ms)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": null,
-          "format": "ms",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "fill": 1,
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 72
-      },
-      "id": 19,
-      "interval": "",
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "hideEmpty": true,
-        "max": true,
-        "min": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(api_service_health_called_sum{name=~\"^$pod_name$\"}[1m])/rate(api_service_health_called_count{name=~\"^$pod_name$\"}[1m])) by (status)",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "{{status}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Emojify API Request Duration /health GET (ms)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": null,
-          "format": "ms",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "description": "Time taken for upstream facebox API to detect faces in an image",
-      "fill": 1,
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 80
-      },
-      "id": 10,
-      "interval": "",
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null as zero",
-      "paceLength": 10,
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(api_service_emojify_find_faces_sum{name=~\"^$pod_name$\"}[30s])/rate(api_service_emojify_find_faces_count{name=~\"^$pod_name$\"}[30s])) by (status)",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "{{status}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Emojify Face Detect Duration",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": 0,
-          "format": "ms",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "fill": 1,
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 88
-      },
-      "id": 25,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "max": true,
-        "min": true,
-        "show": true,
-        "total": false,
-        "values": true
+        "values": false
       },
       "lines": false,
       "linewidth": 1,
@@ -1226,20 +1104,18 @@
       "nullPointMode": "null",
       "paceLength": 10,
       "percentage": false,
-      "pointradius": 5,
+      "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
+      "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(increase(api_service_emojify_cache_check_count{name=~\"^$pod_name$\"}[30s])) by (status)",
+          "expr": "increase(cache_service_cache_invalidated[30s])",
           "format": "time_series",
-          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{status}}",
+          "legendFormat": "{{name}}",
           "refId": "A"
         }
       ],
@@ -1247,98 +1123,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Emojify Cache Hits",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "fill": 1,
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 96
-      },
-      "id": 2,
-      "interval": "",
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": true,
-        "max": true,
-        "min": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "paceLength": 10,
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "increase(api_service_health_called_count[1m])",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "{{ip}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Health Checks",
+      "title": "Cache Invalidated Items",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1388,21 +1173,21 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
-        "definition": "query_result(sum(api_service_health_called_count) by (name))",
+        "definition": "query_result(sum(cache_service_cache_get) by (name))",
         "hide": 0,
         "includeAll": true,
-        "label": null,
+        "label": "",
         "multi": false,
         "name": "pod_name",
         "options": [],
-        "query": "query_result(sum(api_service_health_called_count) by (name))",
+        "query": "query_result(sum(cache_service_cache_get) by (name))",
         "refresh": 1,
         "regex": "/\"([^\"]+)\"/",
         "skipUrlSync": false,
         "sort": 0,
-        "tagValuesQuery": "$name",
+        "tagValuesQuery": "",
         "tags": [],
-        "tagsQuery": "query_result(envoy_ext_authz_connect_authz_ok{label_app=\"emojify-api\"})",
+        "tagsQuery": "",
         "type": "query",
         "useTags": false
       }
@@ -1438,7 +1223,7 @@
     ]
   },
   "timezone": "",
-  "title": "FINAL - API",
-  "uid": "yj1M8Nwiz",
-  "version": 2
+  "title": "lab04 - Cache",
+  "uid": "Uy71qN9ik",
+  "version": 4
 }
