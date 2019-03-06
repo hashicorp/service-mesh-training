@@ -21,7 +21,7 @@ Before we dive into the how I think it is really important to understand why, wh
 
 ## Easy to bypass the perimeter by attacking code
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/bypass.png){pad=100 offset-y=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/bypass.png){pad=100 offset-y=100}
 
 <!--
 What if I told you that an attacker could quite possibly by pass that external defence, that they had the possibility to gain access to the internal network without even trying to touch external firewall but by looking for application code level vulnerabilities which allows them direct access to your internal systems?
@@ -48,7 +48,7 @@ This lateral movement is the key thing here, I love this quote from the Symantec
 
 ## Example attack on vulnerable service
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/vulnerable_service_1.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/vulnerable_service_1.png){pad=100}
 
 
 
@@ -83,7 +83,7 @@ Let’s address the first problem with open network access, we have already disc
 
 ## Traditional approach to security was a perimeter firewall
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/firewall.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/firewall.png){pad=100}
 
 <!--
 The traditional approach to restrict access to services was to use a perimeter firewall, the fundamental problem with a perimeter firewall is that it assumes that it can not be bypassed and as we have already seen it, it can and potentially by someone with a low level of skill.  I.e. me.
@@ -95,7 +95,7 @@ The traditional approach to restrict access to services was to use a perimeter f
 
 ## We need internal network isolation
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/network_isolation.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/network_isolation.png){pad=100}
 
 <!--
 What we need to do is to assume that the perimeter has been breached and control access to services in a fine grained way behind the firewall.  What we are attempting to achieve is to reduce the blast radius of an attack and to limit the attackers ability to move laterally.  The first thing an attacker is going to do is to scan for other applications or services.
@@ -109,7 +109,7 @@ They are looking for an easy target, is there a service with no authentication, 
 
 ## Network segmentation 
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/network_segmentation.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/network_segmentation.png){pad=100}
 
 <!--
 With fine-grained network segmentation a network is partitioned into many smaller networks with the intention of reducing the blast radius should an intrusion occur. This approach involves developing and enforcing a ruleset to control the communications between specific hosts and services.
@@ -125,7 +125,7 @@ If you are operating in a cloud-based environment, network segmentation is achie
 
 ## Service segmentation 
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/service_segmentation.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/service_segmentation.png){pad=100}
 
 <!--
 Where network segmentation is concerned with securing traffic between zones, service segmentation secures traffic between services in the same zone. Service segmentation is a more granular approach and is particularly relevant to multi-tenanted environments such as schedulers where multiple applications are running on a single node.
@@ -141,7 +141,7 @@ Like network segmentation, the principle of least privilege is applied and servi
 
 ## Problem: Dynamic environments result in constantly changing ip addresses and ingress ports
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/dynamic_environments.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/dynamic_environments.png){pad=100}
 
 <!--
 As long as there have been networks this problem has existed, the concepts of Network Segmentation and Segregation have been around for a long time.
@@ -184,7 +184,7 @@ Dynamic networks pose a number of problems when attempting to implement network 
 
 ## Application deployment is disconnected from the network configuration
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/application_deployment_1.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/application_deployment_1.png){pad=100}
 
 <!--
 When applications are deployed using an autoscaling group, and a new instance is created, it is generally dynamically assigned an IP address from a pre-configured block. This particular application is rarely going to be running in isolation and needs to access services running inside the same network segment, and potentially another network segment. If we had taken a hardened approach to our network security, then there would be strict routing rules between the two segments which only allow traffic on a predefined list. In addition to this, we would have host level firewalls configured on the upstream service which again would only allow specific traffic.
@@ -198,7 +198,7 @@ In a static world, this was simpler to solve as the application is deployed to a
 
 ## Application deployment is disconnected from the network configuration
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/application_deployment_2.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/application_deployment_2.png){pad=100}
 
 <!--
 In a dynamic world, there is a disconnect, the application is deployed independently to configuring network security and the allocated IP address, and potentially even ports are dynamic. Typically there is a manual process of updating the network security rules, which can slow down deployments.
@@ -210,7 +210,7 @@ In a dynamic world, there is a disconnect, the application is deployed independe
 
 ## Applications are scheduled in a modern scheduler
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/application_deployment_3.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/application_deployment_3.png){pad=100}
 
 <!--
 In this case, we also need to consider how applications inside the scheduler communicate with other network services. For example, you have a one hundred node cluster and one of your application instances needs to talk to a service in another network segment. The application running in the scheduler could be running on any of the one hundred nodes. This makes it challenging to determine which IP should be whitelisted. A scheduler often moves applications between nodes dynamically, and this causes a constant requirement for routing and firewall rules to be updated.
@@ -224,7 +224,7 @@ One of the unfortunate side effects of this complexity can be that security is r
 
 ## Network / Service segmentation with intention based security
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/application_deployment_4.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/application_deployment_4.png){pad=100}
 
 <!--
 The solution to the complexity and to increase our network security is to remove the need to configure location based security rules and move to an Intention-based model. Intention-based security builds rules on identity rather than location. For example, we can define an intention which states that the front-end service needs to communicate with the payment service.
@@ -250,7 +250,7 @@ Where TLS keeps that traffic safe is that the data is encrypted between the clie
 
 ## Example attack on vulnerable service
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/vulnerable_service_2.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/vulnerable_service_2.png){pad=100}
 
 <!--
 Where things start to fall down is that data is encrypted from the client to the termination point.  In many systems this is not the destination service but an external router or load balancer.  Traffic is often forwarded on in an unencrypted form to the destination service.  We have already seen that it is possible to bypass the firewall and gain access to the system.  If I can read your systems traffic from the wire in an unencrypted form then potentially I do not need to to go any deeper into your system.  Consider this flow, I have a front end application where I submit payment information, actually the payment system and the database which it uses is incredibly well protected, the passwords are strong the data is encrypted at rest and the system has access correctly configured in terms of read and write.  The data contained within this system is incredibly lucrative for me as an attacker, I can get names addresses, credit card numbers, expiry and CVC numbers.  It is the holy grail.  And you as developers and operators have done an incredible job at securing it, in fact such a great job I can not break the system.
@@ -288,7 +288,7 @@ The second point I will however concede is not so easy, you need to manage a cer
 
 ## Data plane - How Connect Secures Traffic
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_1.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/data_plane_1.png){pad=100}
 
 {.column}
 
@@ -303,7 +303,7 @@ The second point I will however concede is not so easy, you need to manage a cer
 
 ## Data plane - How Connect Secures Traffic
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_2.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/data_plane_2.png){pad=100}
 
 {.column}
 
@@ -319,7 +319,7 @@ The second point I will however concede is not so easy, you need to manage a cer
 
 ## Data plane - How Connect Secures Traffic
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_3.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/data_plane_3.png){pad=100}
 
 {.column}
 
@@ -334,7 +334,7 @@ The second point I will however concede is not so easy, you need to manage a cer
 
 ## Data plane - How Connect Secures Traffic
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_4.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/data_plane_4.png){pad=100}
 
 {.column}
 
@@ -350,7 +350,7 @@ The second point I will however concede is not so easy, you need to manage a cer
 
 ## Data plane - How Connect Secures Traffic
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_5.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/data_plane_5.png){pad=100}
 
 {.column}
 
@@ -366,7 +366,7 @@ The second point I will however concede is not so easy, you need to manage a cer
 
 ## Data plane - How Connect Secures Traffic
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/data_plane_6.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/data_plane_6.png){pad=100}
 
 {.column}
 
@@ -383,7 +383,7 @@ The second point I will however concede is not so easy, you need to manage a cer
 
 ## How do we segment the network?
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/segment_1.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/segment_1.png){pad=100}
 
 <!--
 We discussed this problem before that we had limited capability to lock down our network to a particular node due to the dynamic way the scheduler operates, so how do we solve this problem with Consul Connect?
@@ -397,7 +397,7 @@ The truth is we don't have to
 
 ## How do we segment the network?
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/security/images/segment_2.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/2-security/images/segment_2.png){pad=100}
 
 <!--
 Yes we have open network access to our service running in segment b but since we are securing things with connect this is OK, the ports for service B are accessible and open but they are secured automatically with service intentions and the connect proxy.  Let's take a deeper dive at how connect works to understand how things are secure.

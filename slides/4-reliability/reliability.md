@@ -11,7 +11,7 @@
 
 ## Monoliths communicate in process
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/reliability/images/monolith.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/monolith.png)
 
 <!--
 We explained in the first part of this course that with Microservices you break down what would be internal procedure call
@@ -23,7 +23,7 @@ We explained in the first part of this course that with Microservices you break 
 
 ## Microservices communicate across the network
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/reliability/images/microservices.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/microservices.png)
 
 <!--
 and break them out into their own applications which are now connected via a network connections. 
@@ -136,7 +136,7 @@ When we are working in a statically configured environment service discovery cou
 
 ## Service Discovery
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/reliability/images/service_discovery.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/service_discovery.png)
 
 {.column}
 
@@ -166,7 +166,7 @@ Load balancing is not a new problem and in fact has been around as long as the m
 
 ## Load balancing - Hardware load balancers
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/reliability/images/load_balancing_1.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/load_balancing_1.png)
 
 <!--
 We moved from this type of setup to...
@@ -178,7 +178,7 @@ We moved from this type of setup to...
 
 ## Load balancing - Software load balancers
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/reliability/images/load_balancing_2.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/load_balancing_2.png)
 
 <!--
 As software architecture started to change so did trends started to change with load balancing teams started to move to software load balancing by leveraging a reverse proxy like NGinx or HAProxy in software.
@@ -202,7 +202,7 @@ This approach generally follows two patterns:
 
 ## Load balancing - Server side
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/reliability/images/load_balancing_2.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/load_balancing_2.png)
 
 {.column}
 
@@ -236,7 +236,7 @@ While this approach gives a centralized approach to configuring your service cat
 
 ## Load balancing - Client side
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/reliability/images/load_balancing_3.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/load_balancing_3.png)
 
 {.column}
 
@@ -252,7 +252,7 @@ To solve the problems introduced by the centralized dependency of a server side 
 
 ## Load balancing - Data plane
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/reliability/images/load_balancing_4.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/load_balancing_4.png)
 
 {.column}
 
@@ -504,7 +504,7 @@ Timeouts are a really important safety mechanism, they protect your system from 
 
 ## Timeouts
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/reliability/images/timeouts.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/timeouts.png)
 
 
 <!-- 
@@ -566,7 +566,7 @@ A retry is a mechanism which can be used to protect the downstream client from t
 
 ## Retries
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/reliability/images/retries.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/retries.png)
 
 <!--
 Caution does need to taken when using retries as it is possible to DDOS your application.  If the application is misbehaving or just performing slow then constant retries can potentially make things worse.
@@ -783,7 +783,7 @@ When an outlier detection event occurs Envoy outputs the following statistics wi
 
 ## Rate Limiting
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/reliability/images/rate_limit.png)
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/4-reliability/images/rate_limit.png)
 
 
 <!--
