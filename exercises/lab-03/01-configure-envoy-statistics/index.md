@@ -1,6 +1,6 @@
-# Lab 03, Exercise 01: Configure Envoy Statistics
+# Lab 03, Exercise 01: Configure Envoy and Statistics
 
-**Objective:** Configure a stats sink which will push statistics to an upstream collector.
+**Objective:** Configure Envoy to manage service-to-service communication and enable stats collection.
 
 ## Background
 

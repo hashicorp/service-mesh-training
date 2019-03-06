@@ -20,7 +20,7 @@ The default intention behavior is defined by the default
 then all Connect connections are allowed by default. If the default ACL policy
 is "deny all", then all Connect connections are denied by default.
 
-## Step 1 Add deny all rule
+## Step 1: Add deny all rule
 
 Intentions are configured via the Consul API, command line client, or Consul UI. We'll use the UI for this exercise.
 
