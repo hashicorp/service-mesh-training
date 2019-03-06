@@ -42,7 +42,7 @@ spec:
           "-cache-address=localhost:8005",
           "-facebox-address=localhost:8003",
           "-path=/",
-          "--cache-error-rate=0.5",
+          "--cache-error-rate=1.0",
           "--cache-error-type=http_error",
         ]
         ports:
