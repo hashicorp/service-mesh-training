@@ -18,20 +18,47 @@ chart](/docs/platform/k8s/helm.html).
 
 ## Step 1: Inspect updated configs
 
-TODO: Complete this section.
+First, navigate to this exercise's directory:
+
+```
+cd ~/service-mesh-training/exercises/lab-02/01-enable-connect-inject/
+```
+Take a look at the updated Kubernetes config files in `files/app`.
+
+Here we've added [annotations](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/) which:
+
+* inject enjoy into every pod: `"consul.hashicorp.com/connect-inject": "true"`
+* configure upstream connections
+  * api.yml: `"consul.hashicorp.com/connect-service-upstreams": "emojify-facebox:8000,emojify-cache:8001"`
+  * ingress.yml: `"consul.hashicorp.com/connect-service-upstreams": "emojify-website:8000,emojify-api:8001"`
+
+Once applied, Envoy will be injected into every pod and will handle all traffic between pods via localhost proxies. The API service will be able to connect to upstream services `emojify-faceboox` and `emojify-cache`. The ingress will be able to connect to upstream services `emojify-website` and `emojify-api`.
+
+TODO: add diagram here
 
 ## Step 2: Apply updated chart / configs
 
-```
-helm upgrade path/chart
-```
-
-(if there are also kube configs to apply)
+Now apply the updated config files:
 
 ```
-kubectl apply -f
+kubectl apply -f files/app
+
+service/emojify-api-service created
+deployment.apps/emojify-api created
+service/emojify-cache-service created
+deployment.apps/emojify-cache configured
+service/emojify-facebox-service created
+deployment.apps/emojify-facebox configured
+configmap/emojify-ingress-configmap configured
+deployment.apps/emojify-ingress configured
+secret/emojify unchanged
+configmap/emojify-website-configmap unchanged
+service/emojify-website-service created
+deployment.apps/emojify-website configured
 ```
 
 ## Step 3: Verify connect sidecars injected and running
 
-TODO: add how they do this
+Take a look at the **Consul** tab. You should see the Kubernetes pods listed under services:
+
+![Consul sidecar injection](../../images/lab02-consul-sidecar-inject.png "Consul sidecar injection")
