@@ -50,7 +50,7 @@ data:
           .check(status is 200)
         )
     
-    	setUp(scn.inject(constantUsersPerSec(3) during (30 minutes) randomized)).protocols(httpProtocol)
+    	setUp(scn.inject(constantUsersPerSec(3) during (60 minutes) randomized)).protocols(httpProtocol)
     }
 
 ---
