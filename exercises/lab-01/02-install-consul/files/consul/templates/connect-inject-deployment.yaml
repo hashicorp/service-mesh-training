@@ -3,7 +3,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "consul.fullname" . }}-connect-injector-webhook-deployment
+  name: {{ template "consul.fullname" . }}-connect-injector-deployment
   namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "consul.name" . }}
@@ -27,7 +27,7 @@ spec:
         component: connect-injector
     spec:
   {{- if not .Values.connectInject.certs.secretName }}
-      serviceAccountName: {{ template "consul.fullname" . }}-connect-injector-webhook-svc-account
+      serviceAccountName: {{ template "consul.fullname" . }}-connect-injector-svc-account
   {{- end }}
       containers:
         - name: sidecar-injector
