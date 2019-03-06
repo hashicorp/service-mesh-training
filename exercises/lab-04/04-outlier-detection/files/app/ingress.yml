@@ -229,9 +229,9 @@ data:
                 },
                 "connect_timeout": "5s",
                 "outlier_detection": {
-                  "consecutive_5xx": 5,
-                  "consecutive_gateway_failure": 5,
-                  "base_ejection_time": "60s"
+                  "consecutive_5xx": 10,
+                  "consecutive_gateway_failure": 10,
+                  "base_ejection_time": "30s"
                 }
               }
             EOL
