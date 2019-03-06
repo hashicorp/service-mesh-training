@@ -261,10 +261,11 @@ data:
                                   },
                                   "route": {
                                     "cluster": "service:emojify-api",
-                                    "timeout": "2s",
+                                    "timeout": "6s",
                                     "retry_policy": {
                                       "retry_on": "5xx",
-                                      "num_retries": 3
+                                      "num_retries": 2,
+                                      "per_try_timeout": "2s",
                                     }
                                   }
                                 }
@@ -319,6 +320,7 @@ spec:
       name: emojify-ingress
       labels:
         app: emojify-ingress
+        state: retry-part1
       annotations:
         "prometheus_io_scrape": "true"
     spec:

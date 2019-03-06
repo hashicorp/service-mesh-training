@@ -315,6 +315,7 @@ spec:
       name: emojify-ingress
       labels:
         app: emojify-ingress
+        state: timeout-part2
       annotations:
         "prometheus_io_scrape": "true"
     spec:

@@ -556,7 +556,7 @@ Timeouts are configured on the http connection manager and apply at a cluster le
 
 # Retries
 
-<!-
+<!--
 A retry is a mechanism which can be used to protect the downstream client from transient failures.  For example, should an upstream request return a 5xx error then the retry policy will attempt the next instance in the cluster.
 -->
 
@@ -596,9 +596,11 @@ Configuring retries like many reliability patterns should be one of “guess, ch
 ```json
 "route": {
   "cluster": "service:emojify-api",
+  "timeout": "6s", # Maximum time for all retries
   "retry_policy": {
     "retry_on": "5xx",
-    "num_retries": 5
+    "num_retries": 2,
+    "per_try_timeout": "2s" # Timeout for each individual retry
   }
 }
 ```
