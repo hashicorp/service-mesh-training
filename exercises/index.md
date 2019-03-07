@@ -22,7 +22,9 @@ In this set of exercises you'll enable security features in the service mesh by 
 In this set of exercises you'll enable observability features of the service mesh and build a Grafana dashboard.
 
 * [01: Configure Envoy Statistics](lab-03/01-configure-envoy-statistics/index.md)
-* [02: Build Grafana Dashboard](lab-03/02-build-grafana-dashboard/index.md)
+* [02: Observing Envoy Connections](lab-03/02-connections/index.md)
+* [03: Observing Envoy Requests](lab-03/03-requests/index.md)
+* [04: Observing Envoy Authorizations](lab-03/04-authorizations/index.md)
 
 ## Lab 04: Reliability
 
