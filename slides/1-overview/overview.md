@@ -246,7 +246,7 @@ The data plane is typically a local proxy which runs as a sidecar to your applic
 
 ## Consul Architecture - Service -> Consul Communication
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/1-overview/images/architecture_5.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/1-overview/images/architecture_5.png)
 
 <!--
 Communication to the server is carried out through the local client, typically there is one of these running for each virtual machine or node in kubernetes. The agent manages service registration, query of the service catalog, DNS interface, access to the key value and interaction with the Connect feature. It understands the topology of the cluster including the state of the server and location of server nodes. There is no need to manually load balance requests to the Consul server the local agent manages all this for you.
@@ -273,7 +273,7 @@ Communication to the server is carried out through the local client, typically t
 
 ## Emojify infrastructure overview
 
-![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/1-overview/images/overview.png){pad=100}
+![](https://raw.githubusercontent.com/hashicorp/service-mesh-training/master/slides/1-overview/images/overview.png)
 
 ---
 {layout="99-2 Title Clean"}

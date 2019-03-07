@@ -1,8 +1,8 @@
-build_what_is:
+build_overview:
 	@echo Building overview deck
 	@md2gslides ./1-overview/overview.md -t "QCon 2019 - Service mesh overview" -n -c ${DEFAULT_TEMPLATE} -s nord
 
-update_what_is:
+update_overview:
 	@echo Updating overview deck
 	@md2gslides ./1-overview/overview.md -a ${WHATIS_DECK_ID} -e -n -s nord
 
