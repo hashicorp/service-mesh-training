@@ -19,12 +19,3 @@ In the query with legend `error`:
 ```
 sum(increase(envoy_ext_authz_connect_authz_error{label_app="emojify-api", name=~"^$pod_name$"}[1m]))
 ```
-
-1. Connections (created / destroyed)
-2. Authorizations e.g increase(envoy_ext_authz_connect_authz_ok{label_app="emojify-api"}[1m])
-3. Requests (number and timings of individual upstream and downstream)
-4. Make sure all dashboards are broken by pod instance
-5. Update dashboard to show L7 information
-6. (stretch) create grpc dashboard
-
-
