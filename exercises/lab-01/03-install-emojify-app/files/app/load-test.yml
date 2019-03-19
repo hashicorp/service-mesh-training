@@ -22,4 +22,5 @@ spec:
         args: [
           "-users", "5",
           "-base-uri","http://emojify-ingress-service",
-          ]
+          "--show-progress", "false"
+        ]
