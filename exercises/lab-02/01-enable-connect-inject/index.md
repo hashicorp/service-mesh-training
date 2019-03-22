@@ -27,7 +27,7 @@ Take a look at the updated Kubernetes config files in `files/app`.
 
 Here we've added [annotations](https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/) which:
 
-* inject enjoy into every pod: `"consul.hashicorp.com/connect-inject": "true"`
+* inject envoy into every pod: `"consul.hashicorp.com/connect-inject": "true"`
 * configure upstream connections
   * api.yml: `"consul.hashicorp.com/connect-service-upstreams": "emojify-facebox:8000,emojify-cache:8001"`
   * ingress.yml: `"consul.hashicorp.com/connect-service-upstreams": "emojify-website:8000,emojify-api:8001"`
