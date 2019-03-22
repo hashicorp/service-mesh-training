@@ -38,6 +38,8 @@ spec:
         env:
         - name: BIND_ADDRESS
           value: "0.0.0.0"
+        - name: STATSD_ADDRESS
+          value: "localhost:9125"
 
       - name: prometheus-statsd
         image: prom/statsd-exporter:latest
