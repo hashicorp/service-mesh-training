@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MIT
+
 FROM node:alpine
 
 RUN apk update && apk add yarn git

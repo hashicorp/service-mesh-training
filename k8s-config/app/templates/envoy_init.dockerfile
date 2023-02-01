@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MIT
+
 FROM alpine:latest
 
 RUN apk update && apk add gettext

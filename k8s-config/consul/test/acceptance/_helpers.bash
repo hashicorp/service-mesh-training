@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MIT
+
 # name_prefix returns the prefix of the resources within Kubernetes.
 name_prefix() {
     printf "consul"
