@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MIT
+
 locals {
   service_account_path = "${path.module}/service-account.yaml"
 }

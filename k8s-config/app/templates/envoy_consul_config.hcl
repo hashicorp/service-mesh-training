@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MIT
+
 services {
   id   = "emojify-website-68b95bf46f-lqgcq-emojify-website-proxy"
   name = "emojify-website-proxy"

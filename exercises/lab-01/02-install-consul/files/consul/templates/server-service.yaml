@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MIT
+
 # Headless service for Consul server DNS entries. This service should only
 # point to Consul servers. For access to an agent, one should assume that
 # the agent is installed locally on the node and the NODE_IP should be used.

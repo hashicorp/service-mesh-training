@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MIT
+
 # Available parameters and their default values for the Consul chart.
 
 # Server, when enabled, configures a server cluster to run. This should

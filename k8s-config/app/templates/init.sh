@@ -1,4 +1,7 @@
 #!/bin/sh
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MIT
+
 
 # Process the config
 envsubst < /init/envoy_bootstrap.yaml | tee /consul-init/bootstrap.yaml
