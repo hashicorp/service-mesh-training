@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2019, 2026
+
 services {
   id   = "emojify-website-68b95bf46f-lqgcq-emojify-website-proxy"
   name = "emojify-website-proxy"

@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2019, 2026
+
 # DaemonSet to run the Consul clients on every node.
 {{- if (or (and (ne (.Values.client.enabled | toString) "-") .Values.client.enabled) (and (eq (.Values.client.enabled | toString) "-") .Values.global.enabled)) }}
 apiVersion: apps/v1

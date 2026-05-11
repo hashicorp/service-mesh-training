@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2019, 2026
+
 # name_prefix returns the prefix of the resources within Kubernetes.
 name_prefix() {
     printf "consul"

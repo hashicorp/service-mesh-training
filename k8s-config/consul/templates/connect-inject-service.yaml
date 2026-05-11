@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2019, 2026
+
 # The service for the Connect sidecar injector
 {{- if (or (and (ne (.Values.connectInject.enabled | toString) "-") .Values.connectInject.enabled) (and (eq (.Values.connectInject.enabled | toString) "-") .Values.global.enabled)) }}
 apiVersion: v1
