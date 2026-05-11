@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2019, 2026
+
 FROM alpine:latest
 
 RUN apk update && apk add gettext

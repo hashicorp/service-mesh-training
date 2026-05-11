@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2019, 2026
+
 # StatefulSet to run the actual Consul server cluster.
 {{- if (or (and (ne (.Values.server.enabled | toString) "-") .Values.server.enabled) (and (eq (.Values.server.enabled | toString) "-") .Values.global.enabled)) }}
 apiVersion: apps/v1

@@ -1,4 +1,6 @@
 #!/bin/sh
+# Copyright IBM Corp. 2019, 2026
+
 
 # Process the config
 envsubst < /init/envoy_bootstrap.yaml | tee /consul-init/bootstrap.yaml

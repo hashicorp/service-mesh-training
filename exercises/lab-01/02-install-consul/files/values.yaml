@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2019, 2026
+
 # Available parameters and their default values for the Consul chart.
 
 # Server, when enabled, configures a server cluster to run. This should
